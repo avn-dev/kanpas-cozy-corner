@@ -34,11 +34,11 @@ const Hero = () => {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </Link>
-          <Link to="/contact">
+          {/* <Link to="/contact">
             <Button size="lg" variant="outline">
               Reservierung
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
