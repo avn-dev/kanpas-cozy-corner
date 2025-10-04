@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Coffee className="h-6 w-6 text-secondary" />
-              <span className="font-display text-2xl font-bold text-primary">Kanpa's</span>
+              <span className="font-display text-2xl font-bold text-primary">KANPA's</span>
             </div>
             <p className="text-muted-foreground text-sm">
               Dein Ort für Kaffee, Brunch & gute Zeit in gemütlicher Atmosphäre.
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Kanpa's Café & Brunch. Alle Rechte vorbehalten.</p>
+          <p>&copy; {new Date().getFullYear()} KANPA's Café & Brunch. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>

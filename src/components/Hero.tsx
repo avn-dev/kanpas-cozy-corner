@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
-          alt="Gemütliche Café-Atmosphäre bei Kanpa's"
+          alt="Gemütliche Café-Atmosphäre bei KANPA's"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
@@ -19,7 +19,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
         <h1 className="font-display text-5xl md:text-7xl font-bold text-primary mb-6 animate-slide-up">
-          Willkommen bei Kanpa's
+          Willkommen bei KANPA's
         </h1>
         <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Dein Ort für Kaffee, Brunch & gute Zeit

@@ -112,7 +112,7 @@ const Contact = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Kanpa's Standort auf Google Maps"
+                title="KANPA's Standort auf Google Maps"
               />
             </div>
           </div>

@@ -23,7 +23,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <Coffee className="h-6 w-6 text-secondary transition-transform duration-300 group-hover:scale-110" />
-            <span className="font-display text-2xl font-bold text-primary">Kanpa's</span>
+            <span className="font-display text-2xl font-bold text-primary">KANPA's</span>
           </Link>
 
           {/* Desktop Navigation */}

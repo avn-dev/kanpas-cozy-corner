@@ -32,7 +32,7 @@ const Index = () => {
       <section className="py-20 bg-card">
         <div className="container mx-auto px-4">
           <h2 className="font-display text-4xl font-bold text-center text-primary mb-12 animate-fade-in">
-            Warum Kanpa's?
+            Warum KANPA's?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -63,7 +63,7 @@ const Index = () => {
             Bereit für deinen Besuch?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Komm vorbei und erlebe die gemütliche Atmosphäre bei Kanpa's. Wir freuen uns auf dich!
+            Komm vorbei und erlebe die gemütliche Atmosphäre bei KANPA's. Wir freuen uns auf dich!
           </p>
         </div>
       </section>

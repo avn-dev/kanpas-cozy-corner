@@ -20,7 +20,7 @@ const About = () => {
       icon: Users,
       title: "Gemütliche Atmosphäre",
       description:
-        "Bei Kanpa's bist du mehr als ein Gast – du bist Teil unserer Familie. Fühl dich wie zu Hause.",
+        "Bei KANPA's bist du mehr als ein Gast – du bist Teil unserer Familie. Fühl dich wie zu Hause.",
     },
   ];
 
@@ -36,7 +36,7 @@ const About = () => {
               Über Uns
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Die Geschichte hinter Kanpa's
+              Die Geschichte hinter KANPA's
             </p>
           </div>
 
@@ -48,7 +48,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Kanpa's wurde aus der Leidenschaft für gutes Essen, aromatischen Kaffee und
+                  KANPA's wurde aus der Leidenschaft für gutes Essen, aromatischen Kaffee und
                   herzliche Begegnungen geboren. Was als kleiner Traum begann, ist heute ein Ort,
                   an dem Menschen zusammenkommen, um den Tag entspannt zu beginnen oder bei einem
                   ausgedehnten Brunch zu genießen.
@@ -62,7 +62,7 @@ const About = () => {
                 <p>
                   Bei uns findest du nicht nur exzellenten Kaffee und köstliche Brunch-Gerichte,
                   sondern auch ein Team, das mit Herzblut dabei ist. Wir freuen uns darauf, dich
-                  bei Kanpa's willkommen zu heißen!
+                  bei KANPA's willkommen zu heißen!
                 </p>
               </div>
             </div>

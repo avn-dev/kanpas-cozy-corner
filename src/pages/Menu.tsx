@@ -31,7 +31,7 @@ const Menu = () => {
       title: "Brunch",
       items: [
         {
-          name: "Kanpa's Signature Brunch",
+          name: "KANPA's Signature Brunch",
           description: "Brötchen, Croissant, Käse, Aufschnitt, Rührei, Lachs, Obst, Joghurt",
           price: "16,90 €",
           allergens: "🌾 🥛 🥚 🐟",
