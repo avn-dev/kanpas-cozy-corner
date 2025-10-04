@@ -21,10 +21,10 @@ const Hero = () => {
         <h1 className="font-display text-5xl md:text-7xl font-bold text-primary mb-6 animate-slide-up">
           Willkommen bei Kanpa's
         </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Dein Ort für Kaffee, Brunch & gute Zeit
         </p>
-        <p className="text-lg text-muted-foreground mb-12 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.3s" }}>
+        <p className="text-lg mb-12 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.3s" }}>
           Genieße regionale Produkte in gemütlicher Atmosphäre
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
