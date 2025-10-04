@@ -8,7 +8,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      content: "Musterstraße 123, 12345 Musterstadt",
+      content: "Ausdorferstraße 1A, 53489 Sinzig",
     },
     {
       icon: Phone,
