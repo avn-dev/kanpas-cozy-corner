@@ -49,13 +49,13 @@ const Footer = () => {
             <h3 className="font-display text-lg font-semibold mb-4 text-primary">Folge uns</h3>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://instagram.com/kanpas.sinzig"
                 className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
                 aria-label="Facebook"
@@ -68,7 +68,7 @@ const Footer = () => {
                 aria-label="E-Mail"
               >
                 <Mail className="h-5 w-5" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
