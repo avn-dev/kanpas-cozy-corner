@@ -41,6 +41,11 @@ const Footer = () => {
                   Kontakt
                 </Link>
               </li>
+              <li>
+                <Link to="/imprint" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
+                  Impressum
+                </Link>
+              </li>
             </ul>
           </div>
 
