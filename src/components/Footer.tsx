@@ -12,6 +12,11 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <Coffee className="h-6 w-6 text-secondary" />
               <span className="font-display text-2xl font-bold text-primary">KANPA's</span>
+              {/* <img
+                src={logo}
+                alt="KANPA's Logo"
+                className="h-10 object-cover transition-transform duration-300 group-hover:scale-110"
+              /> */}
             </div>
             <p className="text-muted-foreground text-sm">
               Dein Ort für Kaffee, Brunch & gute Zeit in gemütlicher Atmosphäre.
