@@ -1,6 +1,9 @@
+'use client'
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const Menu = () => {
   const menuCategories = [
@@ -56,26 +59,44 @@ const Menu = () => {
         {
           name: "Espresso",
           description: "Klassischer italienischer Espresso",
-          price: "2,50 €",
+          price: "ab 2,50 €",
           allergens: "",
+          options: [
+            { label: "S (Single)", price: "2,50 €" },
+            { label: "M (Doppio)", price: "3,20 €" },
+          ],
         },
         {
           name: "Cappuccino",
           description: "Espresso mit aufgeschäumter Milch",
-          price: "3,80 €",
+          price: "ab 3,20 €",
           allergens: "🥛",
+          options: [
+            { label: "S", price: "3,20 €" },
+            { label: "M", price: "3,80 €" },
+            { label: "L", price: "4,30 €" },
+          ],
         },
         {
           name: "Latte Macchiato",
           description: "Schichten aus Milch und Espresso",
-          price: "4,20 €",
+          price: "ab 3,90 €",
           allergens: "🥛",
+          options: [
+            { label: "S", price: "3,90 €" },
+            { label: "M", price: "4,20 €" },
+            { label: "L", price: "4,70 €" },
+          ],
         },
         {
           name: "Frisch gepresster O-Saft",
           description: "100% frische Orangen",
-          price: "4,50 €",
+          price: "ab 4,50 €",
           allergens: "",
+          options: [
+            { label: "0,3l", price: "4,50 €" },
+            { label: "0,5l", price: "5,90 €" },
+          ],
         },
       ],
     },
@@ -101,7 +122,7 @@ const Menu = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      
+
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -149,11 +170,27 @@ const Menu = () => {
                           {item.description}
                         </CardDescription>
                       </CardHeader>
-                      {item.allergens && (
+
+                      {(item.options || item.allergens) && (
                         <CardContent>
-                          <div className="text-sm text-muted-foreground">
-                            Allergene: {item.allergens}
-                          </div>
+                          {/* Optionen (Größen & Preise) */}
+                          {item.options && (
+                            <div className="mb-2 flex flex-wrap gap-2">
+                              {item.options.map((opt) => (
+                                <Badge key={opt.label} variant="secondary" className="px-3 py-1 text-sm">
+                                  <span className="font-medium mr-2">{opt.label}</span>
+                                  <span>{opt.price}</span>
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Allergene */}
+                          {item.allergens && (
+                            <div className="text-sm text-muted-foreground">
+                              Allergene: {item.allergens}
+                            </div>
+                          )}
                         </CardContent>
                       )}
                     </Card>
