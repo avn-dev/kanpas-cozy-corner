@@ -37,7 +37,7 @@ const Imprint = () => {
                 <p>
                   <b>Kontakt:</b><br/>
                   Telefon: 0160-7747467<br/>
-                  E-Mail: <a href="mailto:kanpara.g41@web.de">kanpara.g41@web.de</a>
+                  E-Mail: <a href="mailto:info@kanpas.de">info@kanpas.de</a>
                 </p>
                 <p>
                   <b>Haftungsausschluss:</b><br/><br/>
