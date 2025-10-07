@@ -10,22 +10,22 @@ const Contact = () => {
       title: "Adresse",
       content: "Ausdorferstraße 1A, 53489 Sinzig",
     },
-    {
-      icon: Phone,
-      title: "Telefon",
-      content: "+49 123 456789",
-    },
-    {
-      icon: Mail,
-      title: "E-Mail",
-      content: "info@kanpas.de",
-    },
+    // {
+    //   icon: Phone,
+    //   title: "Telefon",
+    //   content: "+49 123 456789",
+    // },
+    // {
+    //   icon: Mail,
+    //   title: "E-Mail",
+    //   content: "info@kanpas.de",
+    // },
   ];
 
   const openingHours = [
-    { day: "Montag - Freitag", hours: "08:00 - 18:00 Uhr" },
-    { day: "Samstag", hours: "09:00 - 17:00 Uhr" },
-    { day: "Sonntag", hours: "09:00 - 16:00 Uhr" },
+    { day: "Montag - Freitag", hours: "folgt" },
+    { day: "Samstag", hours: "folgt" },
+    { day: "Sonntag", hours: "folgt" },
   ];
 
   return (
