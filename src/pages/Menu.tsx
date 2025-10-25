@@ -123,7 +123,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
                         <span className="truncate font-medium whitespace-normal break-words">
                           {decodeUnicode(opt.name)}
                         </span>
-                        <span className="shrink-0 tabular-nums font-semibold">
+                        <span className="shrink-0 tabular-nums font-display text-lg font-semibold text-secondary">
                           {price ?? '–'}
                         </span>
                       </li>
