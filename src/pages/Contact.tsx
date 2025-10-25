@@ -4,22 +4,24 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Contact = () => {
+  const isAppleDevice = /iPhone|iPad|Macintosh|Mac/i.test(navigator.userAgent);
+  console.log(isAppleDevice);
   const contactInfo = [
     {
       icon: MapPin,
       title: "Adresse",
       content: "Ausdorferstraße 1A, 53489 Sinzig",
     },
-    // {
-    //   icon: Phone,
-    //   title: "Telefon",
-    //   content: "+49 123 456789",
-    // },
-    // {
-    //   icon: Mail,
-    //   title: "E-Mail",
-    //   content: "info@kanpas.de",
-    // },
+    {
+      icon: Phone,
+      title: "Telefon",
+      content: "<a href=\"tel:+49160774767\">+49 160 774767</a>",
+    },
+    {
+      icon: Mail,
+      title: "E-Mail",
+      content: "<a href=\"mailto:info@kanpas.de\">info@kanpas.de</a>",
+    },
   ];
 
   const openingHours = [
@@ -59,7 +61,10 @@ const Contact = () => {
                       </div>
                       <div>
                         <CardTitle className="text-lg">{info.title}</CardTitle>
-                        <p className="text-muted-foreground mt-1">{info.content}</p>
+                        <p
+                          className="text-muted-foreground mt-1"
+                          dangerouslySetInnerHTML={{ __html: info.content }}
+                        />
                       </div>
                     </div>
                   </CardHeader>
@@ -105,7 +110,7 @@ const Contact = () => {
             </h2>
             <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-[var(--shadow-soft)]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.238393697615!2d7.247795176631875!3d50.54436297244685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bf8471b32e06a5%3A0x8d6bdebb0dbab3a4!2sAusdorferstra%C3%9Fe%201A%2C%2053489%20Sinzig!5e0!3m2!1sde!2sde!4v1728047700000!5m2!1sde!2sde"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.273819918979!2d7.246364376631819!3d50.543989972446846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bef10056a2718d%3A0x869209ef27a88d64!2sKANPA's!5e0!3m2!1sde!2sde!4v1735140000000!5m2!1sde!2sde"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
