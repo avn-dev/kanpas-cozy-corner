@@ -25,7 +25,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <img
               src={logo}
-              alt="KANPA's Logo"
+              alt="KANPA´s Logo"
               className="h-10 object-cover transition-transform duration-300 group-hover:scale-110"
             />
           </Link>
