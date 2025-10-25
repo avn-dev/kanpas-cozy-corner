@@ -48,21 +48,13 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  KANPA's wurde aus der Leidenschaft für gutes Essen, aromatischen Kaffee und
-                  herzliche Begegnungen geboren. Was als kleiner Traum begann, ist heute ein Ort,
-                  an dem Menschen zusammenkommen, um den Tag entspannt zu beginnen oder bei einem
-                  ausgedehnten Brunch zu genießen.
+                  KANPA’s ist aus der Leidenschaft für gutes Essen, herzliche Begegnungen und die Familientradition geboren. Vor 50 Jahren eröffnete hier die Schneiderei unseres Großvaters – er war weit über die Stadtgrenzen hinaus für seine Lebensfreude bekannt. Vor fünf Jahren ist er von uns gegangen, doch nun erfüllt sich hier neues Leben – und wir lassen diesen besonderen Ort wieder lebendig werden.
                 </p>
                 <p>
-                  Unser Name steht für Authentizität und Wärme. In unserem Café verbinden wir
-                  moderne Gemütlichkeit mit der Liebe zu regionalen Produkten. Jeder Besuch soll
-                  ein kleiner Urlaub vom Alltag sein – ein Moment der Ruhe, des Genusses und der
-                  Freude.
+                  Wir haben die alten Räumlichkeiten grundlegend saniert und ein Café geschaffen, das unsere Liebe zu türkischen Spezialitäten und zu regionalen Produkten widerspiegelt. Was einst ein kleiner Traum war, ist heute ein Ort, an dem Menschen zusammenkommen, um den Tag entspannt zu beginnen oder bei einem ausgedehnten Brunch zu genießen.
                 </p>
                 <p>
-                  Bei uns findest du nicht nur exzellenten Kaffee und köstliche Brunch-Gerichte,
-                  sondern auch ein Team, das mit Herzblut dabei ist. Wir freuen uns darauf, dich
-                  bei KANPA's willkommen zu heißen!
+                  Unser Name steht für Authentizität, Wärme und die Freude am gemeinsamen Genuss. Jeder Besuch soll ein kleiner Urlaub vom Alltag sein – ein Moment der Ruhe, des Genusses und der Begegnung. Bei uns findest du nicht nur exzellenten Kaffee, frische Backwaren und köstliche Frühstücks- und Brunchgerichte, sondern auch ein Team, das mit Herzblut dabei ist. Wir freuen uns darauf, dich bei KANPA’s willkommen zu heißen!
                 </p>
               </div>
             </div>
