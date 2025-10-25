@@ -18,12 +18,13 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
-        <h1 className="font-display text-5xl md:text-7xl font-bold text-primary mb-6 animate-slide-up">
-          Willkommen bei KANPA´s
-        </h1>
-        <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          Dein Ort für Kaffee, Brunch & gute Zeit
-        </p>
+        <div className="bg-black/30 p-6 rounded-2xl inline-block">
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-[rgb(245,245,220)] mb-6 animate-slide-up">
+            Willkommen bei KANPA´s
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in text-[rgb(245,245,220)]" style={{ animationDelay: "0.2s" }}>
+            Dein Ort für Kaffee, Brunch & gute Zeit
+          </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Link to="/menu">
             <Button size="lg" variant="secondary" className="group">
@@ -37,6 +38,7 @@ const Hero = () => {
             </Button>
           </Link> */}
         </div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
@@ -45,7 +47,7 @@ const Hero = () => {
           <div className="w-1 h-3 bg-secondary rounded-full" />
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
