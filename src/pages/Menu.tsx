@@ -104,7 +104,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
           {!basePrice && !hasOptions && (
             <div className="mt-2">
-              <Muted>Preis auf Anfrage</Muted>
+              <Muted>Siehe Kuchenvitrine</Muted>
             </div>
           )}
         </CardContent>
@@ -112,7 +112,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
       {!hasOptions && !article.allergens.length && !basePrice && (
         <CardContent className="pt-0">
-          <Muted>Preis auf Anfrage</Muted>
+          <Muted>Siehe Kuchenvitrine</Muted>
         </CardContent>
       )}
     </Card>
@@ -230,7 +230,6 @@ export default function MenuPage() {
           )}
         </div>
       </main>
-
       <Footer />
     </div>
   );
