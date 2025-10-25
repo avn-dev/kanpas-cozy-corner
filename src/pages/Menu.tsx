@@ -91,13 +91,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
             )}
           </div>
           <div className="shrink-0 text-right sm:text-left sm:w-32 md:w-40">
-            {hasOptions ? (
-              <div>
-                <div className="font-display text-lg font-semibold text-secondary">
-                  Optionen
-                </div>
-              </div>
-            ) : (
+            {!hasOptions && (
               basePrice && (
                 <div className="font-display text-lg font-semibold text-secondary">
                   {basePrice}
@@ -112,6 +106,11 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
         <CardContent className="pt-0">
           {hasOptions && (
             <div>
+              <div className="flex items-center justify-between pb-2">
+                <div className="flex items-center justify-between pb-2 font-display text-lg font-semibold text-secondary">
+                  Optionen
+                </div>
+              </div>
               <div className="rounded-xl border bg-card/50">
                 <ul className="divide-y">
                   {article.options.map((opt) => {
