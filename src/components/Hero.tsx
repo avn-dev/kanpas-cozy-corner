@@ -24,9 +24,6 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Dein Ort für Kaffee, Brunch & gute Zeit
         </p>
-        <p className="text-lg mb-12 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.3s" }}>
-          Genieße regionale Produkte in gemütlicher Atmosphäre
-        </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Link to="/menu">
             <Button size="lg" variant="secondary" className="group">
