@@ -28,12 +28,12 @@ const Hero = () => {
           Genieße regionale Produkte in gemütlicher Atmosphäre
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          {/* <Link to="/menu"> */}
-            <Button size="lg" variant="secondary" className="group" disabled>
+          <Link to="/menu">
+            <Button size="lg" variant="secondary" className="group">
               Unsere Karte ansehen
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
-          {/* </Link> */}
+          </Link>
           {/* <Link to="/contact">
             <Button size="lg" variant="outline">
               Reservierung
