@@ -144,7 +144,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
           {!basePrice && !hasOptions && (
             <div className="mt-2">
-              <Muted>Preis auf Anfrage</Muted>
+              <Muted>Preis siehe Kuchenvitrine</Muted>
             </div>
           )}
         </CardContent>
@@ -152,7 +152,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
       {!hasOptions && !article.allergens.length && !basePrice && (
         <CardContent className="pt-0">
-          <Muted>Preis auf Anfrage</Muted>
+          <Muted>Preis siehe Kuchenvitrine</Muted>
         </CardContent>
       )}
     </Card>
