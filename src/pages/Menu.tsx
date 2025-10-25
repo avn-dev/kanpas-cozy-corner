@@ -17,6 +17,51 @@ import { Separator } from '@/components/ui/separator';
 import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
 
+// --- Allergene minimal gemäß API ---
+// Artikel: nur Emoji zeigen. Legende: Emoji + Name aus allen Artikeln.
+
+type AllergenLike = any;
+
+const getAllergenEmoji = (a: AllergenLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    const first = a.trim()[0];
+    return first ?? '';
+  }
+  if (typeof a === 'object') {
+    return a.emoji ?? a.icon ?? '';
+  }
+  return '';
+};
+
+const getAllergenName = (a: AllergenLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
+  }
+  if (typeof a === 'object') {
+    return a.name ?? a.label ?? '';
+  }
+  return '';
+};
+
+const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; name: string; key: string }[] => {
+  if (!data) return [];
+  const map = new Map<string, { emoji: string; name: string; key: string }>();
+  for (const c of data.categories) {
+    for (const art of c.articles) {
+      for (const al of (art.allergens ?? [])) {
+        const emoji = getAllergenEmoji(al);
+        const name = getAllergenName(al);
+        const key = (name || emoji || '').toLowerCase();
+        if (!key) continue;
+        if (!map.has(key)) map.set(key, { emoji, name, key });
+      }
+    }
+  }
+  return Array.from(map.values());
+};
+
 const formatPrice = (price: number | null) =>
   price !== null ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price) : null;
 
@@ -97,14 +142,14 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
           {article.allergens.length > 0 && (
             <div className="mt-3">
               <Muted>
-                Allergene: {article.allergens.join(', ')}
+                Allergene: {article.allergens.map(getAllergenEmoji).filter(Boolean).join(' ')}
               </Muted>
             </div>
           )}
 
           {!basePrice && !hasOptions && (
             <div className="mt-2">
-              <Muted>Preis siehe Kuchenvitrine</Muted>
+              <Muted>Preis auf Anfrage</Muted>
             </div>
           )}
         </CardContent>
@@ -112,7 +157,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
       {!hasOptions && !article.allergens.length && !basePrice && (
         <CardContent className="pt-0">
-          <Muted>Preis siehe Kuchenvitrine</Muted>
+          <Muted>Preis auf Anfrage</Muted>
         </CardContent>
       )}
     </Card>
@@ -144,6 +189,8 @@ export default function MenuPage() {
     return data?.categories.filter((c) => c.articles.length > 0) ?? [];
   }, [data]);
 
+  const legendAllergens = useMemo(() => collectLegendAllergens(data), [data]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
@@ -157,13 +204,16 @@ export default function MenuPage() {
             <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
               Alle unsere Gerichte werden mit Liebe und regionalen Produkten zubereitet
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <span>🌾 Gluten</span>
-              <span>🥛 Milch</span>
-              <span>🥚 Eier</span>
-              <span>🐟 Fisch</span>
-              <span>🥜 Nüsse</span>
-            </div>
+            {legendAllergens.length > 0 && (
+              <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {legendAllergens.map(({ key, emoji, name }) => (
+                  <span key={key} className="inline-flex items-center gap-2">
+                    {emoji && <span>{emoji}</span>}
+                    {name && <span>{name}</span>}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {loading && (
@@ -230,6 +280,7 @@ export default function MenuPage() {
           )}
         </div>
       </main>
+
       <Footer />
     </div>
   );
