@@ -35,9 +35,6 @@ const About = () => {
             <h1 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4">
               Über Uns
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Die Geschichte hinter KANPA's
-            </p>
           </div>
 
           {/* Story Section */}
