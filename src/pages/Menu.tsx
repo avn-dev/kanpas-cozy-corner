@@ -190,7 +190,7 @@ export default function MenuPage() {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pt-36 pb-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-primary">
