@@ -86,7 +86,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KANPA´s Café & Brunch. Alle Rechte vorbehalten.</p>
+          <p>&copy; {new Date().getFullYear()} KANPA´s. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>
