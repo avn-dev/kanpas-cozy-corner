@@ -45,7 +45,7 @@ const Footer = () => {
           <div>
             <h3 className="font-display text-lg font-semibold mb-4 text-primary">Anschrift</h3>
             <p className="text-muted-foreground text-sm">
-              Kanpa´s Café<br/>
+              KANPA´s Café<br/>
               Ausdorferstraße 1A<br/>
               53489 Sinzig
             </p>
