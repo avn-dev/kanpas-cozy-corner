@@ -44,17 +44,29 @@ const Footer = () => {
           {/* Address */}
           <div>
             <h3 className="font-display text-lg font-semibold mb-4 text-primary">Anschrift</h3>
-            <p className="text-muted-foreground text-sm">
-              KANPA´s Café<br/>
-              Ausdorferstraße 1A<br/>
-              53489 Sinzig
-            </p>
+            <ul>
+              <li>
+                <div className="text-muted-foreground transition-colors duration-300">
+                  KANPA´s
+                </div>
+              </li>
+              <li>
+                <div className="text-muted-foreground transition-colors duration-300">
+                  Ausdorferstraße 1A
+                </div>
+              </li>
+              <li>
+                <div className="text-muted-foreground transition-colors duration-300">
+                  53489 Sinzig
+                </div>
+              </li>
+            </ul>
           </div>
 
           {/* Social */}
           <div>
             <h3 className="font-display text-lg font-semibold mb-4 text-primary">Öffnungszeiten</h3>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground transition-colors duration-300">
               Montag – Sonntag: 08:30 – 19:00
             </p>
           </div>
