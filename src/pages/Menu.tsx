@@ -78,29 +78,29 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
   return (
     <Card className="transition-shadow duration-300 hover:shadow-lg">
-      <CardHeader className="pb-4">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-6">
-          <div className="flex-1 min-w-0">
-            <CardTitle className="text-xl leading-tight whitespace-normal break-words">
-              {decodeUnicode(article.name)}
-            </CardTitle>
-            {article.description && (
-              <CardDescription className="mt-1 text-base whitespace-normal break-words sm:pr-6 md:pr-12 lg:pr-20">
-                {decodeUnicode(article.description)}
-              </CardDescription>
-            )}
-          </div>
-          <div className="shrink-0 text-right sm:text-left sm:w-32 md:w-40">
-            {!hasOptions && (
-              basePrice && (
-                <div className="font-display text-lg font-semibold text-secondary">
-                  {basePrice}
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </CardHeader>
+<CardHeader className="pb-4">
+  <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-start">
+    {/* Name */}
+    <CardTitle className="text-xl leading-tight whitespace-normal break-words">
+      {decodeUnicode(article.name)}
+    </CardTitle>
+
+    {/* Preis */}
+    {!hasOptions && basePrice && (
+      <div className="text-right font-display text-lg font-semibold text-secondary">
+        {basePrice}
+      </div>
+    )}
+
+    {/* Beschreibung — volle Breite */}
+    {article.description && (
+      <CardDescription className="col-span-2 mt-1 text-base whitespace-normal break-words">
+        {decodeUnicode(article.description)}
+      </CardDescription>
+    )}
+  </div>
+</CardHeader>
+
 
       {(hasOptions || article.allergens.length > 0) && (
         <CardContent className="pt-0">
