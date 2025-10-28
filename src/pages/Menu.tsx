@@ -71,11 +71,6 @@ const Muted = ({ children }: { children: React.ReactNode }) => (
 );
 
 const MenuItem = ({ article }: { article: MenuArticle }) => {
-  const safeDesc = useMemo(() => {
-    const raw = decodeUnicode(article.description ?? "");
-    return DOMPurify.sanitize(raw, { USE_PROFILES: { html: true } });
-  }, [article.description]);
-  
   const hasOptions = article.options.length > 0;
   const basePrice = formatPrice(article.price);
   const optionMinPrice = hasOptions
@@ -84,28 +79,29 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 
   return (
     <Card className="transition-shadow duration-300 hover:shadow-lg">
-<CardHeader className="pb-4">
-  <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-start">
-    {/* Name */}
-    <CardTitle className="text-xl leading-tight whitespace-normal break-words">
-      {decodeUnicode(article.name)}
-    </CardTitle>
+      <CardHeader className="pb-4">
+        <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-start">
+          {/* Name */}
+          <CardTitle className="text-xl leading-tight whitespace-normal break-words">
+            {decodeUnicode(article.name)}
+          </CardTitle>
 
-    {/* Preis */}
-    {!hasOptions && basePrice && (
-      <div className="text-right font-display text-lg font-semibold text-secondary">
-        {basePrice}
-      </div>
-    )}
+          {/* Preis */}
+          {!hasOptions && basePrice && (
+            <div className="text-right font-display text-lg font-semibold text-secondary">
+              {basePrice}
+            </div>
+          )}
 
-    {/* Beschreibung — volle Breite */}
-    {article.description && (
-      <CardDescription className="col-span-2 mt-1 text-base whitespace-normal break-words">
-        {decodeUnicode(article.description)}
-      </CardDescription>
-    )}
-  </div>
-</CardHeader>
+          {/* Beschreibung — volle Breite */}
+          {article.description && (
+            <CardDescription className="col-span-2 mt-1 text-base whitespace-normal break-words">
+              {/* {decodeUnicode(article.description)} */}
+              <div dangerouslySetInnerHTML={{ __html: article.description }} />
+            </CardDescription>
+          )}
+        </div>
+      </CardHeader>
 
 
       {(hasOptions || article.allergens.length > 0) && (
