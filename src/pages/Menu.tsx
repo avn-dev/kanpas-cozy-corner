@@ -16,7 +16,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
-import DOMPurify from 'isomorphic-dompurify';
 
 // --- Allergene minimal gemäß API ---
 // Artikel: nur Emoji zeigen. Legende: Emoji + Name aus allen Artikeln.
