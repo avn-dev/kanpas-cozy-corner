@@ -47,34 +47,42 @@ const getAllergenName = (a: LabelLike): string => {
   return '';
 };
 
-const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; name: string; key: string }[] => {
+const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; name: string; key: string; position?: number }[] => {
   if (!data) return [];
-  const map = new Map<string, { emoji: string; name: string; key: string }>();
+  const map = new Map<string, { emoji: string; name: string; key: string; position?: number }>();
   for (const c of data.categories) {
     for (const art of c.articles) {
       for (const al of (art.allergens ?? [])) {
         const emoji = getAllergenEmoji(al);
         const name = getAllergenName(al);
         const key = (name || emoji || '').toLowerCase();
+        const position = typeof al === 'object' && 'position' in al ? al.position : undefined;
         if (!key) continue;
-        if (!map.has(key)) map.set(key, { emoji, name, key });
+        if (!map.has(key)) map.set(key, { emoji, name, key, position });
       }
     }
   }
-  return Array.from(map.values());
+  // Sortiere nach position, falls vorhanden
+  return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
 };
 
-// Zusatzstoffe helpers (gleiches Verhalten wie Allergene)
-const getAdditiveEmoji = (a: LabelLike): string => {
-  if (a == null) return '';
-  if (typeof a === 'string') {
-    const first = a.trim()[0]; // Ziffern wie "1", "2" etc.
-    return first ?? '';
+const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; name: string; key: string; position?: number }[] => {
+  if (!data) return [];
+  const map = new Map<string, { emoji: string; name: string; key: string; position?: number }>();
+  for (const c of data.categories) {
+    for (const art of c.articles) {
+      for (const ad of (art.additives ?? [])) {
+        const emoji = getAdditiveEmoji(ad);
+        const name = getAdditiveName(ad);
+        const key = (name || emoji || '').toLowerCase();
+        const position = typeof ad === 'object' && 'position' in ad ? ad.position : undefined;
+        if (!key) continue;
+        if (!map.has(key)) map.set(key, { emoji, name, key, position });
+      }
+    }
   }
-  if (typeof a === 'object') {
-    return a.emoji ?? a.icon ?? '';
-  }
-  return '';
+  // Sortiere nach position, falls vorhanden
+  return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
 };
 
 const getAdditiveName = (a: LabelLike): string => {
