@@ -18,6 +18,7 @@ export interface MenuArticle {
   price: number | null;
   allergens: string[];
   options: MenuOption[];
+  number: number;
 }
 
 export interface MenuCategory {
