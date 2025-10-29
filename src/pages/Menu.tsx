@@ -128,7 +128,11 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
         <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-start">
           {/* Name */}
           <CardTitle className="text-xl leading-tight whitespace-normal break-words">
-            {article.number && (article.number)} {decodeUnicode(article.name)}
+            {article.number && (
+              <>
+                {article.number} &#8226;{" "}
+              </>
+            )}{decodeUnicode(article.name)}
           </CardTitle>
 
           {/* Preis */}
