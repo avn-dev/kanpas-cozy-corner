@@ -17,6 +17,7 @@ export interface MenuArticle {
   image_path: string | null;
   price: number | null;
   allergens: string[];
+  additives: string[];
   options: MenuOption[];
   number: number;
 }

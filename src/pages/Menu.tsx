@@ -18,12 +18,13 @@ import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
 import DOMPurify from 'isomorphic-dompurify';
 
-// --- Allergene minimal gemäß API ---
-// Artikel: nur Emoji zeigen. Legende: Emoji + Name aus allen Artikeln.
+// --- Allergene & Zusatzstoffe (minimal gemäß API) ---
+// Artikel: nur Emoji/Ziffern zeigen. Legende: Emoji/Ziffer + Name aus allen Artikeln.
 
-type AllergenLike = any;
+type LabelLike = any;
 
-const getAllergenEmoji = (a: AllergenLike): string => {
+// Allergene helpers
+const getAllergenEmoji = (a: LabelLike): string => {
   if (a == null) return '';
   if (typeof a === 'string') {
     const first = a.trim()[0];
@@ -35,7 +36,7 @@ const getAllergenEmoji = (a: AllergenLike): string => {
   return '';
 };
 
-const getAllergenName = (a: AllergenLike): string => {
+const getAllergenName = (a: LabelLike): string => {
   if (a == null) return '';
   if (typeof a === 'string') {
     return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
@@ -63,6 +64,47 @@ const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; 
   return Array.from(map.values());
 };
 
+// Zusatzstoffe helpers (gleiches Verhalten wie Allergene)
+const getAdditiveEmoji = (a: LabelLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    const first = a.trim()[0]; // Ziffern wie "1", "2" etc.
+    return first ?? '';
+  }
+  if (typeof a === 'object') {
+    return a.emoji ?? a.icon ?? '';
+  }
+  return '';
+};
+
+const getAdditiveName = (a: LabelLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
+  }
+  if (typeof a === 'object') {
+    return a.name ?? a.label ?? '';
+  }
+  return '';
+};
+
+const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; name: string; key: string }[] => {
+  if (!data) return [];
+  const map = new Map<string, { emoji: string; name: string; key: string }>();
+  for (const c of data.categories) {
+    for (const art of c.articles) {
+      for (const ad of (art.additives ?? [])) {
+        const emoji = getAdditiveEmoji(ad);
+        const name = getAdditiveName(ad);
+        const key = (name || emoji || '').toLowerCase();
+        if (!key) continue;
+        if (!map.has(key)) map.set(key, { emoji, name, key });
+      }
+    }
+  }
+  return Array.from(map.values());
+};
+
 const formatPrice = (price: number | null) =>
   price !== null ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price) : null;
 
@@ -71,11 +113,10 @@ const Muted = ({ children }: { children: React.ReactNode }) => (
 );
 
 const MenuItem = ({ article }: { article: MenuArticle }) => {
-  const hasOptions = article.options.length > 0;
+  const hasOptions = (article.options?.length ?? 0) > 0;
+  const hasAllergens = (article.allergens?.length ?? 0) > 0;
+  const hasAdditives = (article.additives?.length ?? 0) > 0;
   const basePrice = formatPrice(article.price);
-  const optionMinPrice = hasOptions
-    ? formatPrice(Math.min(...article.options.map((o) => o.price || 0)))
-    : null;
 
   return (
     <Card className="transition-shadow duration-300 hover:shadow-lg">
@@ -103,8 +144,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
         </div>
       </CardHeader>
 
-
-      {(hasOptions || article.allergens.length > 0) && (
+      {(hasOptions || hasAllergens || hasAdditives) && (
         <CardContent className="pt-0">
           {hasOptions && (
             <div>
@@ -115,7 +155,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
               </div>
               <div className="rounded-xl border bg-card/50">
                 <ul className="divide-y">
-                  {article.options.map((opt) => {
+                  {article.options!.map((opt: any) => {
                     const price = formatPrice(opt.price);
                     return (
                       <li
@@ -136,10 +176,18 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
             </div>
           )}
 
-          {article.allergens.length > 0 && (
+          {hasAllergens && (
             <div className="mt-3">
               <Muted>
-                Allergene: {article.allergens.map(getAllergenEmoji).filter(Boolean).join(' ')}
+                Allergene: {(article.allergens ?? []).map(getAllergenEmoji).filter(Boolean).join(' ')}
+              </Muted>
+            </div>
+          )}
+
+          {hasAdditives && (
+            <div className="mt-1">
+              <Muted>
+                Zusatzstoffe: {(article.additives ?? []).map(getAdditiveEmoji).filter(Boolean).join(', ')}
               </Muted>
             </div>
           )}
@@ -152,7 +200,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
         </CardContent>
       )}
 
-      {!hasOptions && !article.allergens.length && !basePrice && (
+      {!hasOptions && !hasAllergens && !hasAdditives && !basePrice && (
         <CardContent className="pt-0">
           <Muted>Preis siehe Kuchenvitrine</Muted>
         </CardContent>
@@ -187,6 +235,7 @@ export default function MenuPage() {
   }, [data]);
 
   const legendAllergens = useMemo(() => collectLegendAllergens(data), [data]);
+  const legendAdditives = useMemo(() => collectLegendAdditives(data), [data]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -201,14 +250,40 @@ export default function MenuPage() {
             <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
               Alle unsere Gerichte werden mit Liebe und regionalen Produkten zubereitet
             </p>
-            {legendAllergens.length > 0 && (
-              <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-                {legendAllergens.map(({ key, emoji, name }) => (
-                  <span key={key} className="inline-flex items-center gap-2">
-                    {emoji && <span>{emoji}</span>}
-                    {name && <span>{name}</span>}
-                  </span>
-                ))}
+            {(legendAllergens.length > 0 || legendAdditives.length > 0) && (
+              <div className="mt-6 flex flex-col items-center gap-2 text-xs text-muted-foreground">
+                {legendAllergens.length > 0 && (
+                  <div className="flex items-start gap-3">
+                    <span className="shrink-0 uppercase tracking-wide font-semibold text-[10px] opacity-80">Allergene</span>
+                    <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+                      {legendAllergens.map(({ key, emoji, name }) => (
+                        <span
+                          key={`al-${key}`}
+                          className="inline-flex items-center gap-1 whitespace-nowrap opacity-90"
+                        >
+                          {emoji && <span>{emoji}</span>}
+                          {name && <span>{name}</span>}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {legendAdditives.length > 0 && (
+                  <div className="flex items-start gap-3">
+                    <span className="shrink-0 uppercase tracking-wide font-semibold text-[10px] opacity-80">Zusatzstoffe</span>
+                    <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+                      {legendAdditives.map(({ key, emoji, name }) => (
+                        <span
+                          key={`ad-${key}`}
+                          className="inline-flex items-center gap-1 whitespace-nowrap opacity-90"
+                        >
+                          {emoji && <span>{emoji}</span>}
+                          {name && <span>{name}</span>}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
