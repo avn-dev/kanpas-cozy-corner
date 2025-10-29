@@ -66,6 +66,30 @@ const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; 
   return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
 };
 
+// Zusatzstoffe helpers (gleiches Verhalten wie Allergene)
+const getAdditiveEmoji = (a: LabelLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    const first = a.trim()[0]; // Ziffern wie "1", "2" etc.
+    return first ?? '';
+  }
+  if (typeof a === 'object') {
+    return a.emoji ?? a.icon ?? '';
+  }
+  return '';
+};
+
+const getAdditiveName = (a: LabelLike): string => {
+  if (a == null) return '';
+  if (typeof a === 'string') {
+    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
+  }
+  if (typeof a === 'object') {
+    return a.name ?? a.label ?? '';
+  }
+  return '';
+};
+
 const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; name: string; key: string; position?: number }[] => {
   if (!data) return [];
   const map = new Map<string, { emoji: string; name: string; key: string; position?: number }>();
@@ -83,34 +107,6 @@ const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; 
   }
   // Sortiere nach position, falls vorhanden
   return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
-};
-
-const getAdditiveName = (a: LabelLike): string => {
-  if (a == null) return '';
-  if (typeof a === 'string') {
-    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
-  }
-  if (typeof a === 'object') {
-    return a.name ?? a.label ?? '';
-  }
-  return '';
-};
-
-const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; name: string; key: string }[] => {
-  if (!data) return [];
-  const map = new Map<string, { emoji: string; name: string; key: string }>();
-  for (const c of data.categories) {
-    for (const art of c.articles) {
-      for (const ad of (art.additives ?? [])) {
-        const emoji = getAdditiveEmoji(ad);
-        const name = getAdditiveName(ad);
-        const key = (name || emoji || '').toLowerCase();
-        if (!key) continue;
-        if (!map.has(key)) map.set(key, { emoji, name, key });
-      }
-    }
-  }
-  return Array.from(map.values());
 };
 
 const formatPrice = (price: number | null) =>
