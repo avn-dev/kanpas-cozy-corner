@@ -163,7 +163,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
                         className="flex items-center justify-between gap-4 px-4 py-3"
                       >
                         <span className="truncate font-medium whitespace-normal break-words">
-                          {decodeUnicode(opt.name)}
+                          {opt.number && (opt.number)} {decodeUnicode(opt.name)}
                         </span>
                         <span className="shrink-0 tabular-nums font-display text-lg font-semibold text-secondary">
                           {price ?? '–'}
