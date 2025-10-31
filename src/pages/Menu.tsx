@@ -262,7 +262,7 @@ export default function MenuPage() {
               Unsere Karte
             </h1>
             <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Alle unsere Gerichte werden mit Liebe und regionalen Produkten zubereitet
+              Alle unsere Gerichte werden mit Liebe zubereitet
             </p>
             {(legendAllergens.length > 0 || legendAdditives.length > 0) && (
               <div className="mt-6 flex flex-col items-center gap-2 text-xs text-muted-foreground">
