@@ -15,7 +15,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Telefon",
-      content: "<a href=\"tel:+49160774767\">+49 160 774767</a>",
+      content: "<a href=\"tel:+4926425495\">+49 2642 5495</a>",
     },
     {
       icon: Mail,
