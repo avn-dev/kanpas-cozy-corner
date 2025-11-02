@@ -47,7 +47,7 @@ const Footer = () => {
             <ul>
               <li>
                 <div className="text-muted-foreground transition-colors duration-300">
-                  KANPA´s
+                  Kanpa’s
                 </div>
               </li>
               <li>
@@ -73,7 +73,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KANPA´s. Alle Rechte vorbehalten.</p>
+          <p>&copy; {new Date().getFullYear()} Kanpa’s. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>

@@ -23,7 +23,7 @@ const Imprint = () => {
           <div className="max-w-3xl mx-auto mb-16 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="bg-card rounded-lg p-8 shadow-[var(--shadow-soft)]">
               <h2 className="font-display text-3xl font-bold text-primary mb-6">
-                KANPA´s
+                Kanpa’s
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
@@ -36,7 +36,7 @@ const Imprint = () => {
                 </p>
                 <p>
                   <b>Kontakt:</b><br/>
-                  Telefon: 0160-7747467<br/>
+                  Telefon: <a href="tel:+4926425495">+49 2642 5495</a><br/>
                   E-Mail: <a href="mailto:info@kanpas.de">info@kanpas.de</a>
                 </p>
                 <p>
