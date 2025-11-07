@@ -2,8 +2,10 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const Contact = () => {
+  useDocumentTitle("Kontakt, Öffnungszeiten & Reservierung");
   const isAppleDevice = /iPhone|iPad|Macintosh|Mac/i.test(navigator.userAgent);
   console.log(isAppleDevice);
   const contactInfo = [

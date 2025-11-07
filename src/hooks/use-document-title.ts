@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_NAME = "Kanpa’s | Café & Brunch in Sinzig";
+const SITE_NAME = "Kanpa’s";
 
 export const useDocumentTitle = (pageTitle?: string) => {
   useEffect(() => {

@@ -3,8 +3,10 @@ import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Coffee, Heart, Users } from "lucide-react";
+import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const Index = () => {
+  useDocumentTitle("Café & Brunch in Sinzig");
   const features = [
     {
       icon: Coffee,
