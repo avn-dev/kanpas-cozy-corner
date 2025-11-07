@@ -1,8 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Heart, Leaf, Users } from "lucide-react";
+import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const Imprint = () => {
+  useDocumentTitle("Impressum & rechtliche Informationen");
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />

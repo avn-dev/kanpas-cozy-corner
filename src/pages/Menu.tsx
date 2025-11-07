@@ -17,6 +17,8 @@ import { Separator } from '@/components/ui/separator';
 import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
 import DOMPurify from 'isomorphic-dompurify';
+import { useDocumentTitle } from '@/hooks/use-document-title';
+
 
 // --- Allergene & Zusatzstoffe (minimal gemäß API) ---
 // Artikel: nur Emoji/Ziffern zeigen. Legende: Emoji/Ziffer + Name aus allen Artikeln.
@@ -224,6 +226,7 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 };
 
 export default function MenuPage() {
+  useDocumentTitle('Speisekarte – Frühstück, Brunch & türkische Spezialitäten');
   const [data, setData] = useState<MenuApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
