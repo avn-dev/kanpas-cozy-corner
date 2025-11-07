@@ -17,11 +17,11 @@ const Footer = () => {
                   Home
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link to="/menu" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
                   Menü
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link key="/about" to="/about" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
                   Über Uns
