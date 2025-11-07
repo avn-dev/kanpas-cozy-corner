@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
               <li>
                 <div className="text-muted-foreground transition-colors duration-300">
-                  Ausdorferstraße 1A
+                  Ausdorferstraße 1a
                 </div>
               </li>
               <li>

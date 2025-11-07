@@ -27,7 +27,7 @@ const Imprint = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Ausdorferstraße 1A<br/>
+                  Ausdorferstraße 1a<br/>
                   53489 Sinzig
                 </p>
                 <p>

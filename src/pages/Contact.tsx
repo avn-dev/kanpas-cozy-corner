@@ -10,7 +10,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      content: "Ausdorferstraße 1A, 53489 Sinzig",
+      content: "Ausdorferstraße 1a, 53489 Sinzig",
     },
     {
       icon: Phone,
