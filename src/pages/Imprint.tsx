@@ -25,7 +25,7 @@ const Imprint = () => {
           <div className="max-w-3xl mx-auto mb-16 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="bg-card rounded-lg p-8 shadow-[var(--shadow-soft)]">
               <h2 className="font-display text-3xl font-bold text-primary mb-6">
-                Kanpa’s
+                KANPA’s
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
