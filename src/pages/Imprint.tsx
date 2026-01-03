@@ -1,6 +1,5 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Heart, Leaf, Users } from "lucide-react";
 import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const Imprint = () => {
@@ -9,7 +8,7 @@ const Imprint = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main className="flex-1 pt-36 pb-16">
+      <main id="main-content" className="flex-1 pt-36 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">

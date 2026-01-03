@@ -6,8 +6,6 @@ import { useDocumentTitle } from "@/hooks/use-document-title";
 
 const Contact = () => {
   useDocumentTitle("Kontakt, Öffnungszeiten & Reservierung");
-  const isAppleDevice = /iPhone|iPad|Macintosh|Mac/i.test(navigator.userAgent);
-  console.log(isAppleDevice);
   const contactInfo = [
     {
       icon: MapPin,
@@ -36,7 +34,7 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main className="flex-1 pt-36 pb-16">
+      <main id="main-content" className="flex-1 pt-36 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
