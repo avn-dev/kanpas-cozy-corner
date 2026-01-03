@@ -67,7 +67,7 @@ const Footer = () => {
           <div>
             <h3 className="font-display text-lg font-semibold mb-4 text-primary">Öffnungszeiten</h3>
             <p className="text-muted-foreground transition-colors duration-300">
-              Montag – Sonntag: 08:30 – 19:00
+              Montag – Sonntag: 09 – 17:00
             </p>
           </div>
         </div>
