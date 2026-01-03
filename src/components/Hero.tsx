@@ -12,6 +12,10 @@ const Hero = () => {
           src={heroImage}
           alt="Gemütliche Café-Atmosphäre bei KANPA’s"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
