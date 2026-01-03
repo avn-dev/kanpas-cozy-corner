@@ -27,7 +27,7 @@ const Contact = () => {
   ];
 
   const openingHours = [
-    { day: "Montag – Sonntag", hours: "08:30 – 19:00" },
+    { day: "Montag – Sonntag", hours: "09:00 – 17:00" },
     //{ day: "Samstag", hours: "folgt" },
     //{ day: "Sonntag", hours: "folgt" },
   ];
