@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDocumentTitle } from "@/hooks/use-document-title";
+import { useEffect, useState } from "react";
 
 const Contact = () => {
   useDocumentTitle("Kontakt, Öffnungszeiten & Reservierung");
+  const [isAppleDevice, setIsAppleDevice] = useState(false);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const appleDevicePattern = /iPad|iPhone|iPod|Macintosh/i;
+    setIsAppleDevice(appleDevicePattern.test(userAgent));
+  }, []);
+
   const contactInfo = [
     {
       icon: MapPin,
@@ -110,14 +119,18 @@ const Contact = () => {
             </h2>
             <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-[var(--shadow-soft)]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.273819918979!2d7.246364376631819!3d50.543989972446846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bef10056a2718d%3A0x869209ef27a88d64!2sKANPA’s!5e0!3m2!1sde!2sde!4v1735140000000!5m2!1sde!2sde"
+                src={
+                  isAppleDevice
+                    ? "https://maps.apple.com/?address=Ausdorferstra%C3%9Fe%201a,%2053489%20Sinzig,%20Germany&auid=8738633213800200588&ll=50.54399,7.246364&z=16"
+                    : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.273819918979!2d7.246364376631819!3d50.543989972446846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bef10056a2718d%3A0x869209ef27a88d64!2sKANPA’s!5e0!3m2!1sde!2sde!4v1735140000000!5m2!1sde!2sde"
+                }
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="KANPA’s Standort auf Google Maps"
+                title={isAppleDevice ? "KANPA’s Standort auf Apple Karten" : "KANPA’s Standort auf Google Maps"}
               />
             </div>
           </div>
