@@ -11,6 +11,8 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Imprint from "./pages/Imprint";
 import ScrollToTop from "./lib/ScrollToTop";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,7 @@ const App = () => (
       <BrowserRouter>
         <CookieConsentBanner />
         <ScrollToTop />
+        <AnalyticsTracker/>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/menu" element={<Menu />} />

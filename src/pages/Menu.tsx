@@ -1,122 +1,77 @@
-// app/menu/page.tsx
-'use client';
-
 import { useEffect, useMemo, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Separator } from '@/components/ui/separator';
 import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
 import DOMPurify from 'isomorphic-dompurify';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 
+type LabelLike = string | { emoji?: string; icon?: string; name?: string; label?: string; position?: number } | null;
 
-// --- Allergene & Zusatzstoffe (minimal gemäß API) ---
-// Artikel: nur Emoji/Ziffern zeigen. Legende: Emoji/Ziffer + Name aus allen Artikeln.
-
-type LabelLike = any;
-
-// Allergene helpers
 const getAllergenEmoji = (a: LabelLike): string => {
   if (a == null) return '';
-  if (typeof a === 'string') {
-    const first = a.trim()[0];
-    return first ?? '';
-  }
-  if (typeof a === 'object') {
-    return a.emoji ?? a.icon ?? '';
-  }
-  return '';
+  if (typeof a === 'string') return a.trim()[0] ?? '';
+  return a.emoji ?? a.icon ?? '';
 };
 
 const getAllergenName = (a: LabelLike): string => {
   if (a == null) return '';
-  if (typeof a === 'string') {
-    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
-  }
-  if (typeof a === 'object') {
-    return a.name ?? a.label ?? '';
-  }
-  return '';
+  if (typeof a === 'string') return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
+  return a.name ?? a.label ?? '';
 };
 
-const collectLegendAllergens = (data: MenuApiResponse | null): { emoji: string; name: string; key: string; position?: number }[] => {
-  if (!data) return [];
-  const map = new Map<string, { emoji: string; name: string; key: string; position?: number }>();
-  for (const c of data.categories) {
-    for (const art of c.articles) {
-      for (const al of (art.allergens ?? [])) {
-        const emoji = getAllergenEmoji(al);
-        const name = getAllergenName(al);
-        const key = (name || emoji || '').toLowerCase();
-        const position = typeof al === 'object' && 'position' in al ? al.position : undefined;
-        if (!key) continue;
-        if (!map.has(key)) map.set(key, { emoji, name, key, position });
-      }
-    }
-  }
-  // Sortiere nach position, falls vorhanden
-  return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
-};
-
-// Zusatzstoffe helpers (gleiches Verhalten wie Allergene)
 const getAdditiveEmoji = (a: LabelLike): string => {
   if (a == null) return '';
-  if (typeof a === 'string') {
-    const first = a.trim()[0]; // Ziffern wie "1", "2" etc.
-    return first ?? '';
-  }
-  if (typeof a === 'object') {
-    return a.emoji ?? a.icon ?? '';
-  }
-  return '';
+  if (typeof a === 'string') return a.trim()[0] ?? '';
+  return (a as any).emoji ?? (a as any).icon ?? '';
 };
 
 const getAdditiveName = (a: LabelLike): string => {
   if (a == null) return '';
-  if (typeof a === 'string') {
-    return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
-  }
-  if (typeof a === 'object') {
-    return a.name ?? a.label ?? '';
-  }
-  return '';
+  if (typeof a === 'string') return /\p{Extended_Pictographic}/u.test(a) ? '' : a;
+  return (a as any).name ?? (a as any).label ?? '';
 };
 
-const collectLegendAdditives = (data: MenuApiResponse | null): { emoji: string; name: string; key: string; position?: number }[] => {
+type LegendEntry = { emoji: string; name: string; key: string; position?: number };
+
+const collectLegendAllergens = (data: MenuApiResponse | null): LegendEntry[] => {
   if (!data) return [];
-  const map = new Map<string, { emoji: string; name: string; key: string; position?: number }>();
+  const map = new Map<string, LegendEntry>();
   for (const c of data.categories) {
     for (const art of c.articles) {
-      for (const ad of (art.additives ?? [])) {
-        const emoji = getAdditiveEmoji(ad);
-        const name = getAdditiveName(ad);
+      for (const al of (art.allergens ?? [])) {
+        const emoji = getAllergenEmoji(al as LabelLike);
+        const name = getAllergenName(al as LabelLike);
         const key = (name || emoji || '').toLowerCase();
-        const position = typeof ad === 'object' && 'position' in ad ? ad.position : undefined;
+        const position = typeof al === 'object' && al != null && 'position' in al ? (al as any).position : undefined;
         if (!key) continue;
         if (!map.has(key)) map.set(key, { emoji, name, key, position });
       }
     }
   }
-  // Sortiere nach position, falls vorhanden
+  return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
+};
+
+const collectLegendAdditives = (data: MenuApiResponse | null): LegendEntry[] => {
+  if (!data) return [];
+  const map = new Map<string, LegendEntry>();
+  for (const c of data.categories) {
+    for (const art of c.articles) {
+      for (const ad of (art.additives ?? [])) {
+        const emoji = getAdditiveEmoji(ad as LabelLike);
+        const name = getAdditiveName(ad as LabelLike);
+        const key = (name || emoji || '').toLowerCase();
+        const position = typeof ad === 'object' && ad != null && 'position' in ad ? (ad as any).position : undefined;
+        if (!key) continue;
+        if (!map.has(key)) map.set(key, { emoji, name, key, position });
+      }
+    }
+  }
   return Array.from(map.values()).sort((a, b) => (a.position ?? 9999) - (b.position ?? 9999));
 };
 
 const formatPrice = (price: number | null) =>
   price !== null ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price) : null;
-
-const Muted = ({ children }: { children: React.ReactNode }) => (
-  <span className="text-sm text-muted-foreground">{children}</span>
-);
 
 const MenuItem = ({ article }: { article: MenuArticle }) => {
   const hasOptions = (article.options?.length ?? 0) > 0;
@@ -125,103 +80,61 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
   const basePrice = formatPrice(article.price);
 
   return (
-    <Card className="transition-shadow duration-300 hover:shadow-lg">
-      <CardHeader className="pb-4">
-        <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-start">
-          {/* Name */}
-          <CardTitle className="text-xl leading-tight whitespace-normal break-words">
-            {article.number && (
-              <>
-                {article.number} &#8226;{" "}
-              </>
-            )}{decodeUnicode(article.name)}
-          </CardTitle>
+    <article className="kp-item">
+      <div className="kp-item__row">
+        <div className="kp-item__num">
+          {article.number ? String(article.number).padStart(2, '0') : ''}
+        </div>
+        <div className="kp-item__name">
+          <span>{decodeUnicode(article.name)}</span>
+          <span className="kp-item__leader" />
+        </div>
+        <div className="kp-item__price">
+          {basePrice ?? (hasOptions ? '' : '—')}
+        </div>
+      </div>
 
-          {/* Preis */}
-          {!hasOptions && basePrice && (
-            <div className="text-right font-display text-lg font-semibold text-secondary">
-              {basePrice}
+      {article.description && (
+        <div
+          className="kp-item__desc"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.description) }}
+        />
+      )}
+
+      {hasOptions && (
+        <div className="kp-options">
+          {article.options!.map((opt, i) => (
+            <div key={opt.id ?? i} className="kp-option">
+              <span className="kp-option__name">
+                {opt.number != null && (
+                  <span className="kp-option__num">{opt.number}</span>
+                )}
+                {decodeUnicode(opt.name)}
+                <span className="kp-option__leader" />
+              </span>
+              <span className="kp-option__price">{formatPrice(opt.price) ?? '–'}</span>
             </div>
-          )}
+          ))}
+        </div>
+      )}
 
-          {/* Beschreibung — volle Breite */}
-          {article.description && (
-            <CardDescription className="col-span-2 mt-1 text-base whitespace-normal break-words">
-              {/* {decodeUnicode(article.description)} */}
-              <div dangerouslySetInnerHTML={{ __html: article.description }} />
-            </CardDescription>
+      {(hasAllergens || hasAdditives) && (
+        <div className="kp-item__meta">
+          {hasAllergens && (
+            <span className="kp-item__meta-tag">
+              <span className="kp-item__meta-label">Allerg.</span>
+              <span>{(article.allergens ?? []).map(a => getAllergenEmoji(a as LabelLike)).filter(Boolean).join(' ')}</span>
+            </span>
+          )}
+          {hasAdditives && (
+            <span className="kp-item__meta-tag">
+              <span className="kp-item__meta-label">Zus.</span>
+              <span>{(article.additives ?? []).map(a => getAdditiveEmoji(a as LabelLike)).filter(Boolean).join(', ')}</span>
+            </span>
           )}
         </div>
-      </CardHeader>
-
-      {(hasOptions || hasAllergens || hasAdditives) && (
-        <CardContent className="pt-0">
-          {hasOptions && (
-            <div>
-              <div className="flex items-center justify-between pb-2">
-                <div className="flex items-center justify-between pb-2 font-display text-lg font-semibold text-secondary">
-                  Optionen
-                </div>
-              </div>
-              <div className="rounded-xl border bg-card/50">
-                <ul className="divide-y">
-                  {article.options!.map((opt: any) => {
-                    const price = formatPrice(opt.price);
-                    return (
-                      <li
-                        key={opt.id}
-                        className="flex items-center justify-between gap-4 px-4 py-3"
-                      >
-                        <span className="truncate font-medium whitespace-normal break-words">
-                          {opt.number && (
-                            <>
-                              {opt.number} &#8226;{" "}
-                            </>
-                          )}
-                          {decodeUnicode(opt.name)}
-                        </span>
-
-                        <span className="shrink-0 tabular-nums font-display text-lg font-semibold text-secondary">
-                          {price ?? '–'}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          )}
-
-          {hasAllergens && (
-            <div className="mt-3">
-              <Muted>
-                Allergene: {(article.allergens ?? []).map(getAllergenEmoji).filter(Boolean).join(' ')}
-              </Muted>
-            </div>
-          )}
-
-          {hasAdditives && (
-            <div className="mt-1">
-              <Muted>
-                Zusatzstoffe: {(article.additives ?? []).map(getAdditiveEmoji).filter(Boolean).join(', ')}
-              </Muted>
-            </div>
-          )}
-
-          {!basePrice && !hasOptions && (
-            <div className="mt-2">
-              <Muted>Preis siehe Kuchenvitrine</Muted>
-            </div>
-          )}
-        </CardContent>
       )}
-
-      {!hasOptions && !hasAllergens && !hasAdditives && !basePrice && (
-        <CardContent className="pt-0">
-          <Muted>Preis siehe Kuchenvitrine</Muted>
-        </CardContent>
-      )}
-    </Card>
+    </article>
   );
 };
 
@@ -230,6 +143,7 @@ export default function MenuPage() {
   const [data, setData] = useState<MenuApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -247,127 +161,117 @@ export default function MenuPage() {
     fetchMenu();
   }, []);
 
-  const categories = useMemo(() => {
-    return data?.categories.filter((c) => c.articles.length > 0) ?? [];
-  }, [data]);
+  const categories = useMemo(
+    () => data?.categories.filter((c) => c.articles.length > 0) ?? [],
+    [data]
+  );
+
+  useEffect(() => {
+    if (categories.length > 0 && activeId === null) {
+      setActiveId(categories[0].id);
+    }
+  }, [categories, activeId]);
 
   const legendAllergens = useMemo(() => collectLegendAllergens(data), [data]);
   const legendAdditives = useMemo(() => collectLegendAdditives(data), [data]);
+
+  const scrollToCategory = (id: number) => {
+    setActiveId(id);
+    const el = document.getElementById(`cat-${id}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main id="main-content" className="flex-1 pt-36 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-primary">
-              Unsere Karte
-            </h1>
-            <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Alle unsere Gerichte werden mit Liebe zubereitet
-            </p>
+      <main id="main-content" className="flex-1 menu-redesign" style={{ paddingTop: 'var(--nav-height, 106px)' }}>
+        <section className="kp-menu-head">
+          <h1 className="kp-menu-head__title">
+            Unsere <em>Karte</em>.
+          </h1>
+          <p className="kp-menu-head__sub">
+            Alle unsere Gerichte werden mit Liebe — und türkischer Seele — zubereitet.
+          </p>
+        </section>
+
+        {loading && (
+          <div className="kp-loading">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="kp-shimmer" style={{ height: 60 }} />
+            ))}
+          </div>
+        )}
+
+        {error && (
+          <p className="kp-error">{error}</p>
+        )}
+
+        {!loading && !error && (
+          <>
+            {categories.length > 0 && (
+              <div className="kp-cats">
+                <div className="kp-cats__inner">
+                  {categories.map((c) => (
+                    <button
+                      key={c.id}
+                      className={`kp-cat${activeId === c.id ? ' is-active' : ''}`}
+                      onClick={() => scrollToCategory(c.id)}
+                    >
+                      {decodeUnicode(c.name)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {categories.map((category) => (
+              <section key={category.id} id={`cat-${category.id}`}>
+                <header className="kp-menu-cat">
+                  <h2 className="kp-menu-cat__name">{decodeUnicode(category.name)}</h2>
+                  <div className="kp-menu-cat__rule" />
+                </header>
+                <div className="kp-items-grid">
+                  {category.articles.map((a) => (
+                    <MenuItem key={a.id} article={a} />
+                  ))}
+                </div>
+              </section>
+            ))}
+
             {(legendAllergens.length > 0 || legendAdditives.length > 0) && (
-              <div className="mt-6 flex flex-col items-center gap-2 text-xs text-muted-foreground">
+              <div className="kp-legend">
+                <div className="kp-legend__title">Allergene & Zusatzstoffe</div>
                 {legendAllergens.length > 0 && (
-                  <div className="flex items-start gap-3">
-                    <span className="shrink-0 uppercase tracking-wide font-semibold text-[10px] opacity-80">Allergene</span>
-                    <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
-                      {legendAllergens.map(({ key, emoji, name }) => (
-                        <span
-                          key={`al-${key}`}
-                          className="inline-flex items-center gap-1 whitespace-nowrap opacity-90"
-                        >
-                          {emoji && <span>{emoji}</span>}
-                          {name && <span>{name}</span>}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="kp-legend__items">
+                    {legendAllergens.map(({ key, emoji, name }) => (
+                      <span key={`al-${key}`}>
+                        {emoji && <span>{emoji}</span>}
+                        {name && <span> {name}</span>}
+                      </span>
+                    ))}
                   </div>
                 )}
                 {legendAdditives.length > 0 && (
-                  <div className="flex items-start gap-3">
-                    <span className="shrink-0 uppercase tracking-wide font-semibold text-[10px] opacity-80">Zusatzstoffe</span>
-                    <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
-                      {legendAdditives.map(({ key, emoji, name }) => (
-                        <span
-                          key={`ad-${key}`}
-                          className="inline-flex items-center gap-1 whitespace-nowrap opacity-90"
-                        >
-                          {emoji && <span>{emoji}</span>}
-                          {name && <span>{name}</span>}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="kp-legend__items" style={{ marginTop: 8 }}>
+                    {legendAdditives.map(({ key, emoji, name }) => (
+                      <span key={`ad-${key}`}>
+                        {emoji && <span>{emoji}</span>}
+                        {name && <span> {name}</span>}
+                      </span>
+                    ))}
                   </div>
                 )}
               </div>
             )}
-          </div>
 
-          {loading && (
-            <div className="space-y-12">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <section key={i}>
-                  <Skeleton className="h-9 w-56 mb-6" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {Array.from({ length: 3 }).map((_, j) => (
-                      <Card key={j}>
-                        <CardHeader>
-                          <Skeleton className="h-6 w-3/4" />
-                          <Skeleton className="h-4 w-5/6 mt-2" />
-                        </CardHeader>
-                        <CardContent>
-                          <Skeleton className="h-6 w-24" />
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          )}
-
-          {error && (
-            <Alert variant="destructive" className="max-w-2xl mx-auto">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-
-          {!loading && !error && categories.length === 0 && (
-            <p className="text-center text-muted-foreground">Aktuell keine Gerichte verfügbar.</p>
-          )}
-
-          {!loading && !error && categories.length > 0 && (
-            <div className="space-y-12">
-              {categories.map((category, idx) => (
-                <section
-                  key={category.id}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${idx * 0.06}s` }}
-                >
-                  <div className="flex items-center justify-between">
-                    <h2 className="font-display text-3xl font-bold text-primary">
-                      {decodeUnicode(category.name)}
-                    </h2>
-                    <Separator decorative className="hidden md:block w-1/3" />
-                  </div>
-                  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {category.articles.map((article) => (
-                      <MenuItem key={article.id} article={article} />
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          )}
-
-          {data?.updated_at && (
-            <p className="text-center text-xs text-muted-foreground mt-12">
-              Zuletzt aktualisiert: {new Date(data.updated_at).toLocaleString('de-DE')}
-            </p>
-          )}
-        </div>
+            {data?.updated_at && (
+              <p className="kp-timestamp">
+                Stand: {new Date(data.updated_at).toLocaleString('de-DE')}
+              </p>
+            )}
+          </>
+        )}
       </main>
 
       <Footer />

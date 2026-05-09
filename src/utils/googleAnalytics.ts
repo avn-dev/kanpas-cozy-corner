@@ -61,29 +61,30 @@ const setConsent = (mode: "default" | "update", value: "granted" | "denied") => 
 };
 
 export const enableAnalytics = () => {
-  if (typeof window === "undefined") {
-    return;
-  }
+  if (typeof window === "undefined") return;
 
   const gaWindow = getGAWindow();
-  gaWindow[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
-
   const gtag = ensureGtagStub();
 
-  setConsent("update", "granted");
   injectGtagScript();
 
   if (!gaWindow.__gaInitialized) {
     gtag("js", new Date());
+
+    gtag("consent", "default", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+    });
+
     gtag("config", GA_MEASUREMENT_ID, {
       anonymize_ip: true,
-      allow_google_signals: false,
-      allow_ad_personalization_signals: false,
+      send_page_view: false,
     });
 
     gaWindow.__gaInitialized = true;
   }
 };
+
 
 export const disableAnalytics = () => {
   if (typeof window === "undefined") {

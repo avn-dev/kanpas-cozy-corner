@@ -120,6 +120,396 @@ All colors MUST be HSL.
   }
 }
 
+/* ============================================================
+   Menu Redesign — Warm & Handgemacht
+   All rules scoped to .menu-redesign to avoid touching other pages
+   ============================================================ */
+
+.menu-redesign {
+  --nav-height: 106px;
+  --cream: #F5EFE0;
+  --cream-deep: #EDE5D1;
+  --paper: #FBF6E9;
+  --ink: #1F2826;
+  --ink-soft: #3A4644;
+  --ink-mute: #6B7472;
+  --sage: #5A8A6A;
+  --sage-deep: #426B52;
+  --terracotta: #C97A4A;
+  --line: rgba(31, 40, 38, 0.14);
+  --line-soft: rgba(31, 40, 38, 0.08);
+  --serif-display: 'Fraunces', 'Times New Roman', serif;
+  --serif-body: 'Newsreader', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--serif-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.menu-redesign .kp-menu-head {
+  padding: 32px 20px 20px;
+}
+
+.menu-redesign .kp-menu-head__title {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0 0 8px;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+}
+
+.menu-redesign .kp-menu-head__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--sage-deep);
+}
+
+.menu-redesign .kp-menu-head__sub {
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  font-weight: 350;
+  margin: 0;
+}
+
+.menu-redesign .kp-cats {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 25;
+  background: var(--cream);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 10px 0;
+  margin: 8px 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.menu-redesign .kp-cats::-webkit-scrollbar { display: none; }
+
+.menu-redesign .kp-cats__inner {
+  display: flex;
+  gap: 4px;
+  padding: 0 16px;
+  width: max-content;
+}
+
+.menu-redesign .kp-cat {
+  font-family: var(--serif-body);
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--ink-mute);
+  background: transparent;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color 0.15s, background 0.15s;
+}
+
+.menu-redesign .kp-cat.is-active {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.menu-redesign .kp-menu-cat {
+  padding: 24px 20px 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.menu-redesign .kp-menu-cat__name {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  font-variation-settings: 'opsz' 36, 'SOFT' 50, 'WONK' 1;
+  font-style: italic;
+}
+
+.menu-redesign section[id^="cat-"] {
+  scroll-margin-top: calc(var(--nav-height) + 64px);
+}
+
+.menu-redesign .kp-menu-cat__rule {
+  height: 1px;
+  background: var(--line);
+  align-self: center;
+  margin-bottom: 4px;
+}
+
+.menu-redesign .kp-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.menu-redesign .kp-item__row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.menu-redesign .kp-item__num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--terracotta);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.menu-redesign .kp-item__name {
+  font-family: var(--serif-display);
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 36, 'SOFT' 30;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.menu-redesign .kp-item__leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--line);
+  align-self: end;
+  margin: 0 4px 6px;
+  min-width: 8px;
+}
+
+.menu-redesign .kp-item__price {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.menu-redesign .kp-item__desc {
+  margin: 6px 0 0 40px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  font-weight: 350;
+}
+
+.menu-redesign .kp-options {
+  margin: 10px 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-redesign .kp-option {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 14px;
+}
+
+.menu-redesign .kp-option__name {
+  font-family: var(--serif-body);
+  font-weight: 400;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.menu-redesign .kp-option__num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--terracotta);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin-right: 2px;
+}
+
+
+.menu-redesign .kp-option__leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--line);
+  margin: 0 4px 4px;
+  min-width: 8px;
+}
+
+.menu-redesign .kp-option__price {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.menu-redesign .kp-item__meta {
+  margin: 8px 0 0 40px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-redesign .kp-item__meta-tag {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.menu-redesign .kp-item__meta-label {
+  color: var(--terracotta);
+}
+
+.menu-redesign .kp-legend {
+  margin: 32px 20px 24px;
+  padding: 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-family: var(--serif-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.menu-redesign .kp-legend__title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 8px;
+}
+
+.menu-redesign .kp-legend__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.menu-redesign .kp-timestamp {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  padding: 16px 20px 32px;
+  letter-spacing: 0.05em;
+}
+
+.menu-redesign .kp-error {
+  padding: 40px 20px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+@keyframes kp-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.menu-redesign .kp-shimmer {
+  background: linear-gradient(90deg, var(--paper) 0%, var(--cream-deep) 50%, var(--paper) 100%);
+  background-size: 200% 100%;
+  animation: kp-shimmer 1.4s infinite;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.menu-redesign .kp-loading {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .menu-redesign {
+    --nav-height: 106px;
+  }
+
+  .menu-redesign .kp-menu-head {
+    padding: 56px 56px 32px;
+  }
+
+  .menu-redesign .kp-menu-head__title {
+    font-size: 80px;
+  }
+
+  .menu-redesign .kp-cats__inner {
+    padding: 0 56px;
+  }
+
+  .menu-redesign .kp-cat {
+    font-size: 16px;
+    padding: 10px 18px;
+  }
+
+  .menu-redesign .kp-menu-cat {
+    padding: 40px 56px 16px;
+  }
+
+  .menu-redesign .kp-menu-cat__name {
+    font-size: 36px;
+  }
+
+  .menu-redesign .kp-items-grid {
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 48px;
+  }
+
+  .menu-redesign .kp-item {
+    padding: 18px 0;
+  }
+
+  .menu-redesign .kp-item__name {
+    font-size: 22px;
+  }
+
+  .menu-redesign .kp-legend {
+    margin: 56px 56px 32px;
+    padding: 24px;
+  }
+
+  .menu-redesign .kp-timestamp {
+    padding: 16px 56px 48px;
+  }
+
+  .menu-redesign .kp-error {
+    padding: 40px 56px;
+  }
+
+  .menu-redesign .kp-loading {
+    padding: 40px 56px;
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out forwards;

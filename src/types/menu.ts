@@ -2,6 +2,7 @@
 export interface MenuOption {
   id: number;
   article_id: number;
+  number: number | string | null;
   name: string;
   price: number | null;
   position: number | null;
