@@ -674,6 +674,203 @@ All colors MUST be HSL.
   }
 }
 
+/* ============================================================
+   Contact Redesign — Warm & Handgemacht
+   All rules scoped to .contact-redesign to avoid touching other pages
+   ============================================================ */
+
+.contact-redesign {
+  --nav-height: 106px;
+  --cream: #F5EFE0;
+  --cream-deep: #EDE5D1;
+  --paper: #FBF6E9;
+  --ink: #1F2826;
+  --ink-soft: #3A4644;
+  --ink-mute: #6B7472;
+  --sage: #5A8A6A;
+  --sage-deep: #426B52;
+  --terracotta: #C97A4A;
+  --line: rgba(31, 40, 38, 0.14);
+  --line-soft: rgba(31, 40, 38, 0.08);
+  --serif-display: 'Fraunces', 'Times New Roman', serif;
+  --serif-body: 'Newsreader', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--serif-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.contact-redesign .kp-about-hero {
+  padding: 40px 20px 24px;
+}
+
+.contact-redesign .kp-about-hero__eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 18px;
+}
+
+.contact-redesign .kp-about-hero__title {
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+  margin: 0;
+}
+
+.contact-redesign .kp-about-hero__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--sage-deep);
+}
+
+.contact-redesign .kp-about-hero__sub {
+  margin-top: 20px;
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  font-weight: 350;
+}
+
+.contact-redesign .kp-contact-card {
+  margin: 0 20px 16px;
+  padding: 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.contact-redesign .kp-contact-card__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 8px;
+}
+
+.contact-redesign .kp-contact-card__value {
+  font-family: var(--serif-display);
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 36, 'SOFT' 30;
+}
+
+.contact-redesign .kp-contact-card__value em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--sage-deep);
+}
+
+.contact-redesign .kp-contact-card__sub {
+  margin-top: 6px;
+  font-family: var(--serif-body);
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.contact-redesign .kp-hours {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.contact-redesign .kp-hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--line);
+  font-family: var(--serif-body);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.contact-redesign .kp-hours li:last-child { border-bottom: none; }
+.contact-redesign .kp-hours .day { font-style: italic; }
+.contact-redesign .kp-hours .h { font-family: var(--mono); font-size: 13px; color: var(--ink); }
+
+.contact-redesign .kp-contact-card__value a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-redesign .kp-contact-card__value a:hover {
+  color: var(--terracotta);
+}
+
+.contact-redesign .kp-map-wrapper {
+  margin: 24px 20px 0;
+  height: 280px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .contact-redesign .kp-about-hero {
+    padding: 64px 48px 32px;
+  }
+
+  .contact-redesign .kp-about-hero__title {
+    font-size: 96px;
+  }
+
+  .contact-redesign .kp-contact-card {
+    margin: 0 48px 16px;
+  }
+
+  .contact-redesign .kp-map-wrapper {
+    height: 360px;
+    margin: 24px 48px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-redesign .kp-about-hero {
+    padding: 72px 80px 40px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-redesign .kp-about-hero__title {
+    font-size: 96px;
+  }
+
+  .contact-redesign .kp-contact-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 80px 80px;
+  }
+
+  .contact-redesign .kp-map-wrapper {
+    height: 380px;
+    margin: 32px 0 0;
+  }
+
+  .contact-redesign .kp-contact-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+    align-items: start;
+  }
+
+  .contact-redesign .kp-contact-cols .kp-contact-card {
+    margin: 0 0 16px;
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out forwards;
