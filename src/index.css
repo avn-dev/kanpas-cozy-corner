@@ -121,6 +121,107 @@ All colors MUST be HSL.
 }
 
 /* ============================================================
+   Navigation
+   ============================================================ */
+
+.kp-nav {
+  background: rgba(245, 239, 224, 0.97) !important;
+  border-bottom-color: rgba(31, 40, 38, 0.08) !important;
+}
+
+.kp-nav__link {
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #1F2826;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+
+.kp-nav__link:hover {
+  color: #C97A4A;
+}
+
+.kp-nav__link.is-active {
+  color: #C97A4A;
+}
+
+.kp-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #C97A4A;
+}
+
+.kp-nav__mobile-link {
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1F2826;
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(31, 40, 38, 0.08);
+  transition: color 0.2s;
+}
+
+.kp-nav__mobile-link:last-child {
+  border-bottom: none;
+}
+
+.kp-nav__mobile-link.is-active {
+  color: #C97A4A;
+}
+
+.kp-nav__mobile-link:hover {
+  color: #C97A4A;
+}
+
+/* ============================================================
+   Instagram Topbar
+   ============================================================ */
+
+.kp-topbar-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  background: #F5EFE0;
+  border-bottom: 1px solid rgba(31, 40, 38, 0.08);
+}
+
+.kp-topbar-social__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #C97A4A;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.kp-topbar-social__link:hover {
+  opacity: 0.72;
+}
+
+.kp-topbar-social__icon {
+  width: 13px;
+  height: 13px;
+  fill: #C97A4A;
+  flex-shrink: 0;
+}
+
+/* ============================================================
    Menu Redesign — Warm & Handgemacht
    All rules scoped to .menu-redesign to avoid touching other pages
    ============================================================ */
