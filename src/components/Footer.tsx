@@ -23,6 +23,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/tuerkisches-fruehstueck" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
+                  Türkisches Frühstück
+                </Link>
+              </li>
+              <li>
                 <Link key="/about" to="/about" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
                   Über Uns
                 </Link>

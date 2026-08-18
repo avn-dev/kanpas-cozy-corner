@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Imprint from "./pages/Imprint";
+import TurkishBreakfast from "./pages/TurkishBreakfast";
 import ScrollToTop from "./lib/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/imprint" element={<Imprint />} />
+          <Route path="/tuerkisches-fruehstueck" element={<TurkishBreakfast />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
