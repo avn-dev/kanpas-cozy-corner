@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUp } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { MenuApiResponse, MenuArticle } from '@/types/menu';
 import { decodeUnicode } from '@/utils/decodeUnicode';
 import DOMPurify from 'isomorphic-dompurify';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { useSeo } from '@/hooks/use-seo';
 
 type LabelLike = string | { emoji?: string; icon?: string; name?: string; label?: string; position?: number } | null;
 
@@ -139,11 +141,23 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
 };
 
 export default function MenuPage() {
-  useDocumentTitle('Speisekarte – Frühstück, Brunch & türkische Spezialitäten');
+  useSeo({
+    title: 'Speisekarte – Frühstück, Brunch & türkische Spezialitäten',
+    description:
+      'Die Speisekarte von KANPA’s in Sinzig: KANPA’s Brunch, türkisches Frühstück mit Bazlama, Menemen & Sucuk, Bagels, Pancakes, Pasta und hausgemachte Desserts – alle Preise online.',
+    path: '/menu',
+  });
   const [data, setData] = useState<MenuApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
+  const [showToTop, setShowToTop] = useState(false);
+  const catsBarRef = useRef<HTMLDivElement | null>(null);
+  const spyLockUntilRef = useRef(0);
+
+  const prefersReducedMotion = () =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -175,10 +189,73 @@ export default function MenuPage() {
   const legendAllergens = useMemo(() => collectLegendAllergens(data), [data]);
   const legendAdditives = useMemo(() => collectLegendAdditives(data), [data]);
 
+  // Scroll-Spy: aktive Kategorie anhand der sichtbaren Sektion markieren
+  useEffect(() => {
+    if (categories.length === 0) return;
+    const sections = categories
+      .map((c) => document.getElementById(`cat-${c.id}`))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const visible = new Set<number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = Number(entry.target.id.replace('cat-', ''));
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        if (Date.now() < spyLockUntilRef.current) return;
+        // erste sichtbare Kategorie in Menü-Reihenfolge = aktiv
+        const current = categories.find((c) => visible.has(c.id));
+        if (current) setActiveId(current.id);
+      },
+      // oben: fixe Nav + Sticky-Chips ausblenden; unten: nur oberer Bereich zählt
+      { rootMargin: '-170px 0px -55% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [categories]);
+
+  // Aktiven Chip in der Sticky-Leiste in den sichtbaren Bereich scrollen
+  useEffect(() => {
+    if (activeId === null) return;
+    const bar = catsBarRef.current;
+    const chip = bar?.querySelector<HTMLElement>(`[data-cat-id="${activeId}"]`);
+    if (!bar || !chip) return;
+    const target = chip.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2;
+    bar.scrollTo({
+      left: Math.max(0, target),
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    });
+  }, [activeId]);
+
+  // "Nach oben"-Button ab ~600px Scrolltiefe einblenden
+  useEffect(() => {
+    const onScroll = () => setShowToTop(window.scrollY > 600);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const scrollToCategory = (id: number) => {
     setActiveId(id);
+    // Scroll-Spy während des programmatischen Scrollens nicht dazwischenfunken lassen
+    spyLockUntilRef.current = Date.now() + (prefersReducedMotion() ? 300 : 1000);
     const el = document.getElementById(`cat-${id}`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el) {
+      el.scrollIntoView({
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    });
   };
 
   return (
@@ -191,7 +268,11 @@ export default function MenuPage() {
             Unsere <em>Karte</em>.
           </h1>
           <p className="kp-menu-head__sub">
-            Alle unsere Gerichte werden mit Liebe — und türkischer Seele — zubereitet.
+            Frühstück, Brunch &amp; türkische Spezialitäten in Sinzig — alle Gerichte werden mit Liebe
+            — und türkischer Seele — zubereitet.{' '}
+            <Link to="/tuerkisches-fruehstueck" className="underline underline-offset-4">
+              Was ist türkisches Frühstück?
+            </Link>
           </p>
         </section>
 
@@ -210,11 +291,12 @@ export default function MenuPage() {
         {!loading && !error && (
           <>
             {categories.length > 0 && (
-              <div className="kp-cats">
+              <div className="kp-cats" ref={catsBarRef}>
                 <div className="kp-cats__inner">
                   {categories.map((c) => (
                     <button
                       key={c.id}
+                      data-cat-id={c.id}
                       className={`kp-cat${activeId === c.id ? ' is-active' : ''}`}
                       onClick={() => scrollToCategory(c.id)}
                     >
@@ -272,6 +354,16 @@ export default function MenuPage() {
             )}
           </>
         )}
+        <button
+          type="button"
+          className={`kp-totop${showToTop ? ' is-visible' : ''}`}
+          onClick={scrollToTop}
+          aria-label="Nach oben scrollen"
+          aria-hidden={!showToTop}
+          tabIndex={showToTop ? 0 : -1}
+        >
+          <ArrowUp size={20} strokeWidth={1.75} aria-hidden="true" />
+        </button>
       </main>
 
       <Footer />

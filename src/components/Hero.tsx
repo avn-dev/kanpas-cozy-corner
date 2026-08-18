@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero.png";
+import heroImage from "@/assets/hero.webp";
 
 const Hero = () => {
   return (
@@ -17,17 +17,20 @@ const Hero = () => {
           decoding="async"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        {/* Dark scrim: kräftig hinter dem Text (oben/mittig), nach unten transparent */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
+        {/* Sanfter Auslauf in den Seitenhintergrund zur Folgesektion */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
-        <div className="bg-black/30 p-6 rounded-2xl inline-block">
+        <div className="bg-black/40 backdrop-blur-sm p-6 rounded-2xl inline-block">
           <h1 className="font-display text-5xl md:text-7xl font-bold text-[rgb(245,245,220)] mb-6 animate-slide-up">
             Willkommen bei KANPA’s
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate-fade-in text-[rgb(245,245,220)]" style={{ animationDelay: "0.2s" }}>
-            Dein Ort für Kaffee, Brunch & gute Zeit
+            Dein Ort für Kaffee, türkisches Frühstück & Brunch in Sinzig
           </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Link to="/menu">

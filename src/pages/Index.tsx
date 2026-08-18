@@ -2,11 +2,18 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Coffee, Heart, Users } from "lucide-react";
-import { useDocumentTitle } from "@/hooks/use-document-title";
+import { useSeo } from "@/hooks/use-seo";
 
 const Index = () => {
-  useDocumentTitle("Café & Brunch in Sinzig");
+  useSeo({
+    title: "Café & Brunch in Sinzig",
+    description:
+      "KANPA’s – Café & Brunch in Sinzig. Türkisches Frühstück, Specialty Coffee & hausgemachte Desserts in gemütlicher Atmosphäre. Ausdorferstraße 1a, täglich 9–17 Uhr.",
+    path: "/",
+  });
   const features = [
     {
       icon: Coffee,
@@ -70,8 +77,23 @@ const Index = () => {
               className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              Komm vorbei und erlebe die gemütliche Atmosphäre bei KANPA’s. Wir freuen uns auf dich!
+              Komm vorbei und erlebe die gemütliche Atmosphäre bei KANPA’s — mit{" "}
+              <Link to="/tuerkisches-fruehstueck" className="underline underline-offset-4 hover:text-secondary">
+                türkischem Frühstück
+              </Link>
+              , Brunch und hausgemachten Desserts. Wir freuen uns auf dich!
             </p>
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              <Link to="/menu">
+                <Button size="lg" variant="secondary">Speisekarte ansehen</Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="lg" variant="outline">Tisch reservieren</Button>
+              </Link>
+            </div>
           </div>
         </section>
       </main>

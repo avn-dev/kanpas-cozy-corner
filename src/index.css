@@ -130,7 +130,7 @@ All colors MUST be HSL.
 }
 
 .kp-nav__link {
-  font-family: 'Newsreader', Georgia, serif;
+  font-family: 'Newsreader Variable', Georgia, serif;
   font-style: italic;
   font-size: 15px;
   font-weight: 400;
@@ -161,7 +161,7 @@ All colors MUST be HSL.
 }
 
 .kp-nav__mobile-link {
-  font-family: 'Newsreader', Georgia, serif;
+  font-family: 'Newsreader Variable', Georgia, serif;
   font-style: italic;
   font-size: 18px;
   font-weight: 400;
@@ -239,8 +239,8 @@ All colors MUST be HSL.
   --terracotta: #C97A4A;
   --line: rgba(31, 40, 38, 0.14);
   --line-soft: rgba(31, 40, 38, 0.08);
-  --serif-display: 'Fraunces', 'Times New Roman', serif;
-  --serif-body: 'Newsreader', Georgia, serif;
+  --serif-display: 'Fraunces Variable', 'Times New Roman', serif;
+  --serif-body: 'Newsreader Variable', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   background-color: var(--cream);
   color: var(--ink);
@@ -344,7 +344,8 @@ All colors MUST be HSL.
 }
 
 .menu-redesign section[id^="cat-"] {
-  scroll-margin-top: calc(var(--nav-height) + 64px);
+  /* fixe Nav + Sticky-Chips-Leiste, damit Überschriften beim Anspringen frei bleiben */
+  scroll-margin-top: calc(var(--nav-height) + 76px);
 }
 
 .menu-redesign .kp-menu-cat__rule {
@@ -548,6 +549,51 @@ All colors MUST be HSL.
   gap: 24px;
 }
 
+/* "Nach oben"-Button — unten rechts (unten links sitzt der Cookie-Pill) */
+.menu-redesign .kp-totop {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 239, 224, 0.18);
+  background: var(--sage-deep);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(31, 40, 38, 0.25);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.15s;
+}
+
+.menu-redesign .kp-totop.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.menu-redesign .kp-totop:hover {
+  background: var(--ink);
+}
+
+.menu-redesign .kp-totop:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-redesign .kp-totop {
+    transition: none;
+    transform: none;
+  }
+}
+
 @media (min-width: 768px) {
   .menu-redesign {
     --nav-height: 106px;
@@ -609,6 +655,11 @@ All colors MUST be HSL.
   .menu-redesign .kp-loading {
     padding: 40px 56px;
   }
+
+  .menu-redesign .kp-totop {
+    right: 24px;
+    bottom: 24px;
+  }
 }
 
 /* ============================================================
@@ -629,8 +680,8 @@ All colors MUST be HSL.
   --terracotta: #C97A4A;
   --line: rgba(31, 40, 38, 0.14);
   --line-soft: rgba(31, 40, 38, 0.08);
-  --serif-display: 'Fraunces', 'Times New Roman', serif;
-  --serif-body: 'Newsreader', Georgia, serif;
+  --serif-display: 'Fraunces Variable', 'Times New Roman', serif;
+  --serif-body: 'Newsreader Variable', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   background-color: var(--cream);
   color: var(--ink);
@@ -692,6 +743,20 @@ All colors MUST be HSL.
   margin: 6px 8px 0 0;
   color: var(--terracotta);
   font-variation-settings: 'opsz' 144, 'SOFT' 80, 'WONK' 1;
+}
+
+/* FAQ-Blöcke: keine Initiale (Drop Cap) in den Antworten */
+.about-redesign .kp-prose.kp-no-dropcap p:first-of-type::first-letter,
+.about-redesign .kp-no-dropcap p:first-of-type::first-letter {
+  float: none;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  color: inherit;
+  font-variation-settings: normal;
 }
 
 .about-redesign .kp-pullquote {
@@ -793,8 +858,8 @@ All colors MUST be HSL.
   --terracotta: #C97A4A;
   --line: rgba(31, 40, 38, 0.14);
   --line-soft: rgba(31, 40, 38, 0.08);
-  --serif-display: 'Fraunces', 'Times New Roman', serif;
-  --serif-body: 'Newsreader', Georgia, serif;
+  --serif-display: 'Fraunces Variable', 'Times New Roman', serif;
+  --serif-body: 'Newsreader Variable', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   background-color: var(--cream);
   color: var(--ink);
