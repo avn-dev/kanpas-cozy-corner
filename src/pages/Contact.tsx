@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useDocumentTitle } from "@/hooks/use-document-title";
+import { useSeo } from "@/hooks/use-seo";
 import { useEffect, useRef, useState } from "react";
 
 declare global {
@@ -20,7 +20,12 @@ const hours: [string, string][] = [
 ];
 
 const Contact = () => {
-  useDocumentTitle("Kontakt, Öffnungszeiten & Reservierung");
+  useSeo({
+    title: "Kontakt, Öffnungszeiten & Reservierung",
+    description:
+      "Kontakt & Anfahrt: KANPA’s, Ausdorferstraße 1a, 53489 Sinzig – 2 Minuten vom Marktplatz. Täglich 9–17 Uhr geöffnet. Tisch reservieren unter +49 2642 5495.",
+    path: "/contact",
+  });
   const [useAppleMaps, setUseAppleMaps] = useState(false);
   const [mapKitFailed, setMapKitFailed] = useState(false);
   const [mapKitLoaded, setMapKitLoaded] = useState(false);
@@ -69,7 +74,7 @@ const Contact = () => {
       });
 
       const annotation = new window.mapkit.MarkerAnnotation(coordinate, {
-        title: "KANPA's",
+        title: "KANPA’s",
         subtitle: "Ausdorferstraße 1a, 53489 Sinzig",
       });
 
@@ -193,7 +198,7 @@ const Contact = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="KANPA's Standort auf Google Maps"
+                title="KANPA’s Standort auf Google Maps"
               />
             )}
           </div>

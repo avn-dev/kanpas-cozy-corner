@@ -1,9 +1,15 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useDocumentTitle } from "@/hooks/use-document-title";
+import { Link } from "react-router-dom";
+import { useSeo } from "@/hooks/use-seo";
 
 const About = () => {
-  useDocumentTitle("Über uns — KANPA's");
+  useSeo({
+    title: "Über uns",
+    description:
+      "Die Geschichte hinter KANPA’s in Sinzig: Aus der Schneiderei des Großvaters wurde ein Café – ein Haus, zwei Generationen. Türkische Spezialitäten, mit Liebe gemacht.",
+    path: "/about",
+  });
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,7 +31,7 @@ const About = () => {
           <div className="kp-about-content">
             <div className="kp-prose">
               <p>
-                KANPA's ist aus Liebe zu gutem Essen, herzlichen Begegnungen und einer Familientradition entstanden.
+                KANPA’s ist aus Liebe zu gutem Essen, herzlichen Begegnungen und einer Familientradition entstanden.
                 Vor 50 Jahren eröffnete hier die Schneiderei unseres Großvaters – er war weit über Sinzig hinaus für
                 seine Lebensfreude bekannt.
               </p>
@@ -41,8 +47,9 @@ const About = () => {
 
             <div className="kp-prose">
               <p>
-                Unser Name steht für Authentizität, Wärme und gemeinsamen Genuss. Bei uns findest du nicht nur
-                Specialty Coffee, frische Backwaren und Frühstücksgerichte, sondern ein Team, das mit Herzblut dabei ist.
+                Unser Name steht für Authentizität, Wärme und gemeinsamen Genuss. Bei uns findest du nicht nur{" "}
+                <Link to="/menu">Specialty Coffee, frische Backwaren und Frühstücksgerichte</Link>, sondern ein
+                Team, das mit Herzblut dabei ist.
               </p>
             </div>
           </div>

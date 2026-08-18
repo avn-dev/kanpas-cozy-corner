@@ -1,9 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useDocumentTitle } from "@/hooks/use-document-title";
+import { useSeo } from "@/hooks/use-seo";
 
 const Imprint = () => {
-  useDocumentTitle("Impressum & rechtliche Informationen");
+  useSeo({
+    title: "Impressum & rechtliche Informationen",
+    description:
+      "Impressum von KANPA’s – Café & Brunch in Sinzig, Ausdorferstraße 1a, 53489 Sinzig.",
+    path: "/imprint",
+  });
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
