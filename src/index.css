@@ -305,6 +305,8 @@ a { color: inherit; }
   overflow: hidden;
 }
 .rd-figure__frame > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.rd-figure__frame--hero { aspect-ratio: 4 / 3; }
+@media (min-width: 768px) { .rd-figure__frame--hero { aspect-ratio: 16 / 7; } }
 .rd-figure__caption {
   text-align: center;
   padding: 10px 8px 4px 8px;
@@ -703,6 +705,13 @@ a { color: inherit; }
   flex-shrink: 0;
 }
 .rd-timeline__what { font-size: 15px; line-height: 1.55; }
+
+/* Cookie-Banner & Reopen-Pill: auf Seiten mit mobiler Reservieren-Leiste
+   nach oben ausweichen, damit sie die Leiste nicht verdecken */
+@media (max-width: 1023px) {
+  body:has(.kp-reservebar) .rd-cookie-banner { bottom: 72px !important; }
+  body:has(.kp-reservebar) .rd-cookie-reopen { bottom: 72px !important; }
+}
 
 /* ---------- Skip-Link ---------- */
 

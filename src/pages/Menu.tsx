@@ -382,7 +382,7 @@ export default function MenuPage() {
             </div>
 
             <a href="tel:+4926425495" className="kp-reservebar">
-              ☎ Tisch reservieren — 02642 5495
+              <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> Tisch reservieren — 02642 5495
             </a>
           </>
         )}

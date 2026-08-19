@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
 import sofraPhoto from "@/assets/hero.webp";
+import { Phone } from "lucide-react";
 
 const GOOGLE_REVIEW_URL =
   "https://www.google.com/maps/search/?api=1&query=KANPA%E2%80%99s+Ausdorferstra%C3%9Fe+1a+Sinzig";
@@ -43,7 +44,7 @@ const Index = () => {
           </p>
           <div className="rd-ctas" style={{ marginTop: 36 }}>
             <a href="tel:+4926425495" className="rd-pill rd-pill--solid">
-              ☎ Tisch reservieren — 02642 5495
+              <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> Tisch reservieren — 02642 5495
             </a>
             <Link to="/menu" className="rd-pill rd-pill--outline">
               Speisekarte ansehen
@@ -61,7 +62,7 @@ const Index = () => {
         {/* Abbildung 01 — die gedeckte Sofra */}
         <div className="rd-wrap" style={{ paddingBottom: 56 }}>
           <figure className="rd-figure" style={{ margin: 0 }}>
-            <div className="rd-figure__frame" style={{ aspectRatio: "16 / 7", minHeight: 220 }}>
+            <div className="rd-figure__frame rd-figure__frame--hero">
               <img
                 src={sofraPhoto}
                 alt="Die gedeckte Sofra: türkisches Frühstück mit vielen kleinen Schälchen, Bazlama und Çay bei KANPA’s"

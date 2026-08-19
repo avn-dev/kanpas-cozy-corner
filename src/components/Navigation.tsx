@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "@/assets/logo.jpeg";
+import { Phone } from "lucide-react";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -55,9 +56,9 @@ const Navigation = () => {
               href="tel:+4926425495"
               className="rd-iconbtn rd-iconbtn--solid"
               aria-label="Anrufen und Tisch reservieren"
-              style={{ gap: 0, fontSize: 17 }}
+              style={{ gap: 0 }}
             >
-              ☎
+              <Phone size={18} strokeWidth={1.75} aria-hidden="true" />
             </a>
             <button
               type="button"

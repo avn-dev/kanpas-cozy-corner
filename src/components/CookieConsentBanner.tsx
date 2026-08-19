@@ -119,6 +119,7 @@ const CookieConsentBanner = () => {
           aria-modal="true"
           aria-labelledby="cookie-consent-title"
           aria-describedby="cookie-consent-description"
+          className="rd-cookie-banner"
           style={{
             position: "fixed",
             left: 12,
@@ -276,6 +277,7 @@ const CookieConsentBanner = () => {
           type="button"
           onClick={reopenPreferences}
           aria-label="Cookie-Einstellungen öffnen"
+          className="rd-cookie-reopen"
           style={{
             position: "fixed",
             bottom: 16,

@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
+import { Phone } from "lucide-react";
 
 const faq: [string, string][] = [
   [
@@ -85,7 +86,7 @@ const TurkishBreakfast = () => {
           </p>
           <div className="rd-ctas" style={{ marginTop: 32 }}>
             <a href="tel:+4926425495" className="rd-pill rd-pill--solid">
-              ☎ Tisch reservieren
+              <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> Tisch reservieren
             </a>
             <Link to="/menu" className="rd-pill rd-pill--outline">
               Zur Speisekarte
@@ -185,7 +186,7 @@ const TurkishBreakfast = () => {
               Wochenende? Reservier dir deine Sofra.
             </div>
             <a href="tel:+4926425495" className="rd-pill rd-pill--cream" style={{ alignSelf: "center" }}>
-              ☎ +49 2642 5495
+              <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> +49 2642 5495
             </a>
           </div>
         </section>

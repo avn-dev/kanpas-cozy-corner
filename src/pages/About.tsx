@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
+import { Phone } from "lucide-react";
 
 const timeline: [string, string][] = [
   ["Vor 50 J.", "Großvaters Schneiderei eröffnet — bekannt weit über Sinzig hinaus."],
@@ -55,7 +56,7 @@ const About = () => {
             </p>
             <div className="rd-ctas" style={{ marginTop: 8, justifyContent: "flex-start" }}>
               <a href="tel:+4926425495" className="rd-pill rd-pill--solid">
-                ☎ Tisch reservieren
+                <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> Tisch reservieren
               </a>
               <Link to="/menu" className="rd-pill rd-pill--outline">
                 Zur Speisekarte

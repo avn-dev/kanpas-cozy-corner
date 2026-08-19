@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useSeo } from "@/hooks/use-seo";
 import { useEffect, useRef, useState } from "react";
+import { Phone } from "lucide-react";
 
 declare global {
   interface Window {
@@ -138,7 +139,7 @@ const Contact = () => {
           </p>
           <div style={{ marginTop: 30 }}>
             <a href="tel:+4926425495" className="rd-pill rd-pill--solid" style={{ fontSize: 17 }}>
-              ☎ +49 2642 5495
+              <Phone size={16} strokeWidth={1.75} aria-hidden="true" /> +49 2642 5495
             </a>
           </div>
         </section>
