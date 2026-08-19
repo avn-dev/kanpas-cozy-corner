@@ -1,85 +1,73 @@
-import { Coffee, Facebook, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.jpeg";
 
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/search/?api=1&query=KANPA%E2%80%99s+Ausdorferstra%C3%9Fe+1a+Sinzig";
+
 const Footer = () => {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-          {/* Links */}
-          <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Navigation</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/menu" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Menü
-                </Link>
-              </li>
-              <li>
-                <Link to="/tuerkisches-fruehstueck" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Türkisches Frühstück
-                </Link>
-              </li>
-              <li>
-                <Link key="/about" to="/about" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Über Uns
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Kontakt & Standort
-                </Link>
-              </li>
-              <li>
-                <Link to="/imprint" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
-                  Impressum
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-
-          {/* Address */}
-          <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Anschrift</h3>
-            <ul>
-              <li>
-                <div className="text-muted-foreground transition-colors duration-300">
-                  KANPA’s
-                </div>
-              </li>
-              <li>
-                <div className="text-muted-foreground transition-colors duration-300">
-                  Ausdorferstraße 1a
-                </div>
-              </li>
-              <li>
-                <div className="text-muted-foreground transition-colors duration-300">
-                  53489 Sinzig
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Öffnungszeiten</h3>
-            <p className="text-muted-foreground transition-colors duration-300">
-              Montag – Sonntag: 09 – 17:00
-            </p>
-          </div>
+    <footer className="rd-footer">
+      <div className="rd-footer__grid">
+        <div className="rd-footer__col">
+          <img
+            src={logo}
+            alt="KANPA’s Logo"
+            style={{ height: 42, borderRadius: 4, alignSelf: "flex-start" }}
+            loading="lazy"
+            decoding="async"
+          />
+          <p className="rd-footer__claim" style={{ margin: 0 }}>
+            Café &amp; Brunch in Sinzig — türkisches Frühstück, Specialty Coffee &amp; hausgemachte
+            Desserts.
+          </p>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KANPA’s. Alle Rechte vorbehalten.</p>
+        <div className="rd-footer__col">
+          <div className="rd-footer__label">Seiten</div>
+          <Link to="/">Home</Link>
+          <Link to="/menu">Speisekarte</Link>
+          <Link to="/tuerkisches-fruehstueck">Türkisches Frühstück</Link>
+          <Link to="/about">Über uns</Link>
+          <Link to="/contact">Kontakt &amp; Standort</Link>
         </div>
+
+        <div className="rd-footer__col">
+          <div className="rd-footer__label">Kontakt</div>
+          <span>
+            Ausdorferstraße 1a
+            <br />
+            53489 Sinzig
+          </span>
+          <a href="tel:+4926425495">+49 2642 5495</a>
+          <a href="mailto:info@kanpas.de">info@kanpas.de</a>
+          <a href="https://instagram.com/kanpas.sinzig" target="_blank" rel="noreferrer noopener">
+            @kanpas.sinzig
+          </a>
+        </div>
+
+        <div className="rd-footer__col">
+          <div className="rd-footer__label">Öffnungszeiten</div>
+          <span>
+            Montag – Sonntag
+            <br />
+            9:00 – 17:00 Uhr
+          </span>
+          <a
+            className="rd-footer__review"
+            href={GOOGLE_REVIEW_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            ★ Auf Google bewerten
+          </a>
+        </div>
+      </div>
+
+      <div className="rd-footer__bottom">
+        <span>© 2026 KANPA’s. Alle Rechte vorbehalten.</span>
+        <span>
+          <Link to="/imprint">Impressum</Link>
+        </span>
       </div>
     </footer>
   );

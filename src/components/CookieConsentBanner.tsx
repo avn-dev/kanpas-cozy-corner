@@ -115,110 +115,158 @@ const CookieConsentBanner = () => {
     <>
       {isBannerVisible && (
         <div
-          className="fixed inset-x-4 bottom-4 z-50 sm:inset-x-auto sm:right-6 sm:max-w-lg"
           role="dialog"
           aria-modal="true"
           aria-labelledby="cookie-consent-title"
           aria-describedby="cookie-consent-description"
+          style={{
+            position: "fixed",
+            left: 12,
+            right: 12,
+            bottom: 12,
+            zIndex: 60,
+            margin: "0 auto",
+            maxWidth: 440,
+            background: "var(--rd-paper)",
+            border: "1px solid var(--rd-ink)",
+            borderRadius: 14,
+            padding: 16,
+            boxShadow: "0 12px 32px rgba(43,30,22,.3)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+            maxHeight: "80svh",
+            overflowY: "auto",
+          }}
         >
-          <div
-            className={`rounded-2xl border border-border/70 bg-white/95 p-4 shadow-xl shadow-emerald-950/10 backdrop-blur sm:p-5 ${
-              isDetailsOpen ? "max-h-[80svh] overflow-y-auto" : "max-h-[35svh] overflow-y-auto"
-            }`}
-          >
-            <div className="space-y-3 text-sm text-muted-foreground">
-              <div className="space-y-1.5">
-                <h2 id="cookie-consent-title" className="text-base font-semibold text-foreground">
-                  Cookies & Datenschutz
-                </h2>
-                <p id="cookie-consent-description" className="text-xs leading-5 sm:text-sm sm:leading-6">
-                  Wir nutzen technisch notwendige Cookies und – nur mit deiner Einwilligung – Google Analytics.{" "}
-                  <Link
-                    to="/imprint"
-                    className="font-medium text-foreground underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-1"
-                  >
-                    Impressum & Datenschutzhinweise
-                  </Link>
-                </p>
+          <h2 id="cookie-consent-title" className="sr-only">
+            Cookies &amp; Datenschutz
+          </h2>
+          <div id="cookie-consent-description" style={{ fontSize: 14.5, lineHeight: 1.5 }}>
+            <strong>Cookies:</strong> Nur technisch Notwendiges — und Statistik, wenn du magst.{" "}
+            <button
+              type="button"
+              onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+              aria-expanded={isDetailsOpen}
+              aria-controls={detailsId}
+              style={{
+                background: "none",
+                border: 0,
+                padding: 0,
+                font: "inherit",
+                color: "inherit",
+                textDecoration: "underline",
+                textUnderlineOffset: 3,
+                cursor: "pointer",
+              }}
+            >
+              Mehr dazu
+            </button>
+          </div>
+
+          {isDetailsOpen && (
+            <div
+              id={detailsId}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                fontSize: 13.5,
+                lineHeight: 1.55,
+                color: "var(--rd-sepia)",
+                borderTop: "1px solid var(--rd-line)",
+                paddingTop: 12,
+              }}
+            >
+              <p style={{ margin: 0 }}>
+                Wir setzen ausschließlich technisch notwendige Cookies sowie – nur mit deiner
+                Einwilligung – optionale Analyse-Cookies von Google Analytics. Die IP-Adressen
+                werden anonymisiert und es werden keine personenbezogenen Profile gebildet. Du
+                kannst deine Entscheidung jederzeit widerrufen. Mehr in unserem{" "}
+                <Link to="/imprint" style={{ color: "var(--rd-ink)" }}>
+                  Impressum &amp; Datenschutzhinweisen
+                </Link>
+                .
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  alignItems: "baseline",
+                }}
+              >
+                <div>
+                  <div style={{ fontWeight: 600, color: "var(--rd-ink)", fontSize: 14 }}>
+                    Unbedingt erforderliche Cookies
+                  </div>
+                  <div>Sitzung &amp; Sicherheit — werden immer gesetzt.</div>
+                </div>
+                <span
+                  style={{
+                    flexShrink: 0,
+                    fontSize: 11,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--rd-gold)",
+                  }}
+                >
+                  immer aktiv
+                </span>
               </div>
-
-              {isDetailsOpen && (
-                <div id={detailsId} className="space-y-3">
-                  <p className="text-xs leading-5">
-                    Wir setzen ausschließlich technisch notwendige Cookies sowie – nur mit Ihrer Einwilligung – optionale
-                    Analyse-Cookies von Google Analytics. Die IP-Adressen werden anonymisiert und es werden keine
-                    personenbezogenen Profile gebildet. Sie können Ihre Entscheidung jederzeit widerrufen.
-                  </p>
-
-                  <div className="space-y-3 rounded-2xl border border-border/60 bg-white/80 p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="space-y-1">
-                        <p className="text-sm font-medium text-foreground">Unbedingt erforderliche Cookies</p>
-                        <p className="text-xs leading-5 text-muted-foreground">
-                          Speichern Ihre Sitzung und Sicherheitseinstellungen. Diese Cookies sind für den Betrieb unserer Website
-                          erforderlich und werden immer gesetzt.
-                        </p>
-                      </div>
-                      <span className="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
-                        immer aktiv
-                      </span>
-                    </div>
-                    <div className="h-px bg-border/60" aria-hidden="true" />
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="space-y-1">
-                        <Label htmlFor={analyticsSwitchId} className="text-sm font-medium text-foreground">
-                          Analyse & Statistik (Google Analytics)
-                        </Label>
-                        <p className="text-xs leading-5 text-muted-foreground">
-                          Hilft uns zu verstehen, wie Besucher:innen unsere Seite nutzen. Wir setzen Google Analytics nur mit
-                          Ihrer Zustimmung ein, verwenden IP-Anonymisierung und deaktivieren Google-Signale.
-                        </p>
-                      </div>
-                      <Switch
-                        id={analyticsSwitchId}
-                        checked={analyticsEnabled}
-                        onCheckedChange={(checked) => setAnalyticsEnabled(checked === true)}
-                      />
-                    </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <Label
+                    htmlFor={analyticsSwitchId}
+                    style={{ fontWeight: 600, color: "var(--rd-ink)", fontSize: 14 }}
+                  >
+                    Analyse &amp; Statistik (Google Analytics)
+                  </Label>
+                  <div>
+                    Nur mit deiner Zustimmung, mit IP-Anonymisierung und ohne Google-Signale.
                   </div>
                 </div>
-              )}
-
-              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsDetailsOpen((open) => !open)}
-                  aria-expanded={isDetailsOpen}
-                  aria-controls={detailsId}
-                  className="inline-flex items-center justify-center rounded-full px-2 py-1.5 text-xs font-medium text-muted-foreground underline underline-offset-4 transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 sm:mr-auto motion-reduce:transition-none"
-                >
-                  {isDetailsOpen ? "Einstellungen ausblenden" : "Einstellungen"}
-                </button>
-                {isDetailsOpen && (
-                  <button
-                    type="button"
-                    onClick={() => applyConsent(analyticsEnabled)}
-                    className="inline-flex items-center justify-center rounded-full border border-foreground/20 px-4 py-2 text-sm font-medium text-foreground transition hover:border-foreground/40 hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 motion-reduce:transition-none"
-                  >
-                    Auswahl speichern
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => applyConsent(false)}
-                  className="inline-flex items-center justify-center rounded-full border border-foreground/20 px-4 py-2 text-sm font-medium text-foreground transition hover:border-foreground/40 hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 motion-reduce:transition-none"
-                >
-                  Nur notwendige
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyConsent(true)}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition hover:from-emerald-600 hover:to-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 motion-reduce:transition-none"
-                >
-                  Alle akzeptieren
-                </button>
+                <Switch
+                  id={analyticsSwitchId}
+                  checked={analyticsEnabled}
+                  onCheckedChange={(checked) => setAnalyticsEnabled(checked === true)}
+                />
               </div>
+              <button
+                type="button"
+                onClick={() => applyConsent(analyticsEnabled)}
+                className="rd-pill rd-pill--outline"
+                style={{ fontSize: 14, padding: "10px 20px", minHeight: 0, alignSelf: "flex-start" }}
+              >
+                Auswahl speichern
+              </button>
             </div>
+          )}
+
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              type="button"
+              onClick={() => applyConsent(true)}
+              className="rd-pill rd-pill--solid"
+              style={{ flex: 1, fontSize: 14.5, padding: 12 }}
+            >
+              Okay
+            </button>
+            <button
+              type="button"
+              onClick={() => applyConsent(false)}
+              className="rd-pill rd-pill--outline"
+              style={{ flex: 1, fontSize: 14.5, padding: 11 }}
+            >
+              Nur nötige
+            </button>
           </div>
         </div>
       )}
@@ -227,10 +275,29 @@ const CookieConsentBanner = () => {
         <button
           type="button"
           onClick={reopenPreferences}
-          className="fixed bottom-4 left-4 z-40 inline-flex items-center gap-2 rounded-full border border-border/80 bg-white/95 px-4 py-2 text-xs font-medium text-foreground shadow-md shadow-emerald-950/5 backdrop-blur transition hover:border-border hover:bg-white"
           aria-label="Cookie-Einstellungen öffnen"
+          style={{
+            position: "fixed",
+            bottom: 16,
+            left: 16,
+            zIndex: 40,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            borderRadius: 999,
+            border: "1px solid var(--rd-line2)",
+            background: "var(--rd-paper)",
+            padding: "8px 14px",
+            fontSize: 12,
+            color: "var(--rd-ink)",
+            cursor: "pointer",
+            boxShadow: "0 4px 14px rgba(43,30,22,.12)",
+          }}
         >
-          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
+          <span
+            aria-hidden="true"
+            style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--rd-gold)" }}
+          />
           Cookie-Einstellungen
         </button>
       )}

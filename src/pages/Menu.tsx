@@ -262,18 +262,19 @@ export default function MenuPage() {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main id="main-content" className="flex-1 menu-redesign" style={{ paddingTop: 'var(--nav-height, 106px)' }}>
-        <section className="kp-menu-head">
-          <h1 className="kp-menu-head__title">
-            Unsere <em>Karte</em>.
+      <main id="main-content" className="flex-1" style={{ paddingTop: 'var(--nav-height)' }}>
+        <section className="rd-hero" style={{ paddingBottom: 24 }}>
+          <div className="rd-eyebrow" style={{ marginBottom: 18 }}>
+            Alle Preise · täglich frisch
+          </div>
+          <h1 className="rd-display" style={{ fontSize: 'clamp(38px, 5.5vw, 76px)' }}>
+            Speisekarte — Frühstück &amp; <em>Brunch in Sinzig.</em>
           </h1>
-          <p className="kp-menu-head__sub">
-            Frühstück, Brunch &amp; türkische Spezialitäten in Sinzig — alle Gerichte werden mit Liebe
-            — und türkischer Seele — zubereitet.{' '}
-            <Link to="/tuerkisches-fruehstueck" className="underline underline-offset-4">
+          <div style={{ marginTop: 20 }}>
+            <Link to="/tuerkisches-fruehstueck" className="rd-textlink">
               Was ist türkisches Frühstück?
             </Link>
-          </p>
+          </div>
         </section>
 
         {loading && (
@@ -307,51 +308,82 @@ export default function MenuPage() {
               </div>
             )}
 
-            {categories.map((category) => (
-              <section key={category.id} id={`cat-${category.id}`}>
-                <header className="kp-menu-cat">
-                  <h2 className="kp-menu-cat__name">{decodeUnicode(category.name)}</h2>
-                  <div className="kp-menu-cat__rule" />
-                </header>
-                <div className="kp-items-grid">
-                  {category.articles.map((a) => (
-                    <MenuItem key={a.id} article={a} />
+            <div className="rd-wrap kp-menu-layout" style={{ paddingBottom: 64 }}>
+              {categories.length > 0 && (
+                <aside className="kp-rail" aria-label="Kategorien">
+                  <div className="kp-rail__label">Kategorien</div>
+                  {categories.map((c) => (
+                    <button
+                      key={c.id}
+                      className={`kp-rail__item${activeId === c.id ? ' is-active' : ''}`}
+                      onClick={() => scrollToCategory(c.id)}
+                    >
+                      <span className="kp-rail__name">{decodeUnicode(c.name)}</span>
+                      <span className="kp-rail__count">{c.articles.length}</span>
+                    </button>
                   ))}
-                </div>
-              </section>
-            ))}
+                  <div className="kp-rail__hint">
+                    Fragen zu Allergenen? Sprich uns einfach an —{' '}
+                    <strong>
+                      <a href="tel:+4926425495" style={{ textDecoration: 'none' }}>
+                        +49 2642 5495
+                      </a>
+                    </strong>
+                  </div>
+                </aside>
+              )}
 
-            {(legendAllergens.length > 0 || legendAdditives.length > 0) && (
-              <div className="kp-legend">
-                <div className="kp-legend__title">Allergene & Zusatzstoffe</div>
-                {legendAllergens.length > 0 && (
-                  <div className="kp-legend__items">
-                    {legendAllergens.map(({ key, emoji, name }) => (
-                      <span key={`al-${key}`}>
-                        {emoji && <span>{emoji}</span>}
-                        {name && <span> {name}</span>}
-                      </span>
-                    ))}
+              <div>
+                {categories.map((category) => (
+                  <section key={category.id} id={`cat-${category.id}`} style={{ scrollMarginTop: 'calc(var(--nav-height) + 76px)' }}>
+                    <header className="kp-menu-cat">
+                      <h2 className="kp-menu-cat__name">{decodeUnicode(category.name)}</h2>
+                    </header>
+                    <div>
+                      {category.articles.map((a) => (
+                        <MenuItem key={a.id} article={a} />
+                      ))}
+                    </div>
+                  </section>
+                ))}
+
+                {(legendAllergens.length > 0 || legendAdditives.length > 0) && (
+                  <div className="kp-legend">
+                    <div className="kp-legend__title">Allergene & Zusatzstoffe</div>
+                    {legendAllergens.length > 0 && (
+                      <div className="kp-legend__items">
+                        {legendAllergens.map(({ key, emoji, name }) => (
+                          <span key={`al-${key}`}>
+                            {emoji && <span>{emoji}</span>}
+                            {name && <span> {name}</span>}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {legendAdditives.length > 0 && (
+                      <div className="kp-legend__items" style={{ marginTop: 8 }}>
+                        {legendAdditives.map(({ key, emoji, name }) => (
+                          <span key={`ad-${key}`}>
+                            {emoji && <span>{emoji}</span>}
+                            {name && <span> {name}</span>}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
-                {legendAdditives.length > 0 && (
-                  <div className="kp-legend__items" style={{ marginTop: 8 }}>
-                    {legendAdditives.map(({ key, emoji, name }) => (
-                      <span key={`ad-${key}`}>
-                        {emoji && <span>{emoji}</span>}
-                        {name && <span> {name}</span>}
-                      </span>
-                    ))}
-                  </div>
+
+                {data?.updated_at && (
+                  <p className="kp-timestamp">
+                    Stand: {new Date(data.updated_at).toLocaleString('de-DE')}
+                  </p>
                 )}
               </div>
-            )}
+            </div>
 
-            {data?.updated_at && (
-              <p className="kp-timestamp">
-                Stand: {new Date(data.updated_at).toLocaleString('de-DE')}
-              </p>
-            )}
+            <a href="tel:+4926425495" className="kp-reservebar">
+              ☎ Tisch reservieren — 02642 5495
+            </a>
           </>
         )}
         <button

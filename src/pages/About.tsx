@@ -3,6 +3,12 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
 
+const timeline: [string, string][] = [
+  ["Vor 50 J.", "Großvaters Schneiderei eröffnet — bekannt weit über Sinzig hinaus."],
+  ["Vor 5 J.", "Abschied vom Großvater — das Haus bleibt in der Familie."],
+  ["Heute", "Die alten Räume sind saniert — KANPA’s füllt sie mit neuem Leben."],
+];
+
 const About = () => {
   useSeo({
     title: "Über uns",
@@ -15,45 +21,116 @@ const About = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main
-        id="main-content"
-        className="flex-1 about-redesign"
-        style={{ paddingTop: 'var(--nav-height, 106px)' }}
-      >
-        <div className="kp-about-layout">
-          <section className="kp-about-hero">
-            <div className="kp-about-hero__eyebrow">— Über uns</div>
-            <h1 className="kp-about-hero__title">
-              Ein Haus, <em>zwei</em> Generationen.
-            </h1>
-          </section>
+      <main id="main-content" className="flex-1" style={{ paddingTop: "var(--nav-height)" }}>
+        <section className="rd-hero" style={{ paddingBottom: 36 }}>
+          <div className="rd-eyebrow" style={{ marginBottom: 20 }}>
+            Über KANPA’s — unser Café in Sinzig
+          </div>
+          <h1 className="rd-display" style={{ fontSize: "clamp(40px, 6.5vw, 88px)" }}>
+            Ein Haus,
+            <br />
+            <em>zwei Generationen.</em>
+          </h1>
+        </section>
 
-          <div className="kp-about-content">
-            <div className="kp-prose">
-              <p>
-                KANPA’s ist aus Liebe zu gutem Essen, herzlichen Begegnungen und einer Familientradition entstanden.
-                Vor 50 Jahren eröffnete hier die Schneiderei unseres Großvaters – er war weit über Sinzig hinaus für
-                seine Lebensfreude bekannt.
-              </p>
-              <p>
-                Vor fünf Jahren ist er gegangen, doch jetzt erfüllt sich der Ort mit neuem Leben. Wir haben die
-                alten Räume saniert und ein Café geschaffen, das unsere Liebe zu türkischen Spezialitäten widerspiegelt.
-              </p>
-            </div>
-
-            <blockquote className="kp-pullquote">
-              Jeder Besuch soll ein kleiner Urlaub vom Alltag sein.
-            </blockquote>
-
-            <div className="kp-prose">
-              <p>
-                Unser Name steht für Authentizität, Wärme und gemeinsamen Genuss. Bei uns findest du nicht nur{" "}
-                <Link to="/menu">Specialty Coffee, frische Backwaren und Frühstücksgerichte</Link>, sondern ein
-                Team, das mit Herzblut dabei ist.
-              </p>
+        <section
+          className="rd-wrap grid grid-cols-1 lg:grid-cols-2"
+          style={{ gap: 48, paddingBottom: 64, alignItems: "start" }}
+        >
+          <div className="flex flex-col" style={{ gap: 20, fontSize: 17, lineHeight: 1.75 }}>
+            <p style={{ margin: 0 }}>
+              KANPA’s ist aus Liebe zu gutem Essen, herzlichen Begegnungen und einer
+              Familientradition entstanden. Vor 50 Jahren eröffnete hier die Schneiderei unseres
+              Großvaters — er war weit über Sinzig hinaus für seine Lebensfreude bekannt.
+            </p>
+            <p style={{ margin: 0 }}>
+              Vor fünf Jahren ist er gegangen, doch jetzt erfüllt sich der Ort mit neuem Leben. Wir
+              haben die alten Räume saniert und ein Café geschaffen, das unsere Liebe zu türkischen
+              Spezialitäten widerspiegelt.
+            </p>
+            <p style={{ margin: 0 }}>
+              Unser Name steht für Authentizität, Wärme und gemeinsamen Genuss. Bei uns findest du
+              nicht nur <Link to="/menu">Specialty Coffee, frische Backwaren und Frühstücksgerichte</Link>,
+              sondern ein Team, das mit Herzblut dabei ist.
+            </p>
+            <div className="rd-ctas" style={{ marginTop: 8, justifyContent: "flex-start" }}>
+              <a href="tel:+4926425495" className="rd-pill rd-pill--solid">
+                ☎ Tisch reservieren
+              </a>
+              <Link to="/menu" className="rd-pill rd-pill--outline">
+                Zur Speisekarte
+              </Link>
             </div>
           </div>
-        </div>
+
+          <div className="flex flex-col" style={{ gap: 24 }}>
+            <figure className="rd-figure" style={{ margin: 0 }}>
+              <div
+                className="rd-figure__frame"
+                style={{ height: 280, display: "flex", alignItems: "center", justifyContent: "center" }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    top: 24,
+                    left: 24,
+                    width: 80,
+                    height: 80,
+                    borderRadius: "50%",
+                    border: "1px solid var(--rd-gold)",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    bottom: 24,
+                    right: 24,
+                    width: 110,
+                    height: 110,
+                    borderRadius: "50%",
+                    border: "1px solid var(--rd-line2)",
+                  }}
+                />
+                <div style={{ textAlign: "center", maxWidth: 280, padding: 16 }}>
+                  <div className="rd-serif-i" style={{ fontSize: 22 }}>
+                    Das Haus in der Ausdorferstraße
+                  </div>
+                  <div
+                    style={{
+                      marginTop: 6,
+                      fontSize: 12,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: "var(--rd-sepia2)",
+                    }}
+                  >
+                    Platz für ein Foto — Abb. 02
+                  </div>
+                </div>
+              </div>
+            </figure>
+
+            <div className="rd-timeline">
+              {timeline.map(([when, what]) => (
+                <div key={when} className="rd-timeline__row">
+                  <span className="rd-timeline__when">{when}</span>
+                  <span className="rd-timeline__what">{what}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="rd-band" style={{ textAlign: "center", padding: "56px 24px" }}>
+          <blockquote className="rd-quote" style={{ margin: "0 auto" }}>
+            „Jeder Besuch soll ein kleiner Urlaub vom Alltag sein.“
+          </blockquote>
+          <div className="rd-eyebrow" style={{ marginTop: 14, letterSpacing: "0.2em" }}>
+            Familie Kanpara
+          </div>
+        </section>
       </main>
 
       <Footer />

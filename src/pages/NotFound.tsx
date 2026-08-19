@@ -17,11 +17,18 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <main id="main-content" className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Diese Seite gibt es leider nicht.</p>
-        <Link to="/" className="text-blue-500 underline hover:text-blue-700">
+    <main id="main-content" className="flex min-h-screen items-center justify-center">
+      <div className="text-center" style={{ padding: 24 }}>
+        <div className="rd-eyebrow" style={{ marginBottom: 16 }}>
+          Seite nicht gefunden
+        </div>
+        <h1 className="rd-display" style={{ fontSize: "clamp(64px, 10vw, 120px)" }}>
+          4<em>0</em>4
+        </h1>
+        <p className="rd-sub" style={{ margin: "18px 0 26px 0" }}>
+          Diese Seite gibt es leider nicht — aber Frühstück gibt es trotzdem.
+        </p>
+        <Link to="/" className="rd-pill rd-pill--solid">
           Zurück zur Startseite
         </Link>
       </div>

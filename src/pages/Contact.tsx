@@ -10,14 +10,24 @@ declare global {
 }
 
 const hours: [string, string][] = [
-  ['Montag', '09 – 17:00'],
-  ['Dienstag', '09 – 17:00'],
-  ['Mittwoch', '09 – 17:00'],
-  ['Donnerstag', '09 – 17:00'],
-  ['Freitag', '09 – 17:00'],
-  ['Samstag', '09 – 17:00'],
-  ['Sonntag', '09 – 17:00'],
+  ["Montag", "9:00 – 17:00"],
+  ["Dienstag", "9:00 – 17:00"],
+  ["Mittwoch", "9:00 – 17:00"],
+  ["Donnerstag", "9:00 – 17:00"],
+  ["Freitag", "9:00 – 17:00"],
+  ["Samstag", "9:00 – 17:00"],
+  ["Sonntag", "9:00 – 17:00"],
 ];
+
+const travel: [string, string][] = [
+  ["Remagen", "≈ 10 Autominuten"],
+  ["Bad Breisig", "≈ 10 Autominuten"],
+  ["Bad Neuenahr-Ahrweiler", "≈ 15 Autominuten"],
+  ["Andernach", "≈ 20 Autominuten"],
+];
+
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/search/?api=1&query=KANPA%E2%80%99s+Ausdorferstra%C3%9Fe+1a+Sinzig";
 
 const Contact = () => {
   useSeo({
@@ -113,96 +123,141 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      <main
-        id="main-content"
-        className="flex-1 contact-redesign"
-        style={{ paddingTop: 'var(--nav-height, 106px)' }}
-      >
-        {/* Hero — full width */}
-        <section className="kp-about-hero">
-          <div className="kp-about-hero__eyebrow">— Kontakt & Standort</div>
-          <h1 className="kp-about-hero__title">
-            Komm <em>vorbei</em>.
+      <main id="main-content" className="flex-1" style={{ paddingTop: "var(--nav-height)" }}>
+        <section className="rd-hero" style={{ paddingBottom: 44 }}>
+          <div className="rd-eyebrow" style={{ marginBottom: 20 }}>
+            Kontakt &amp; Standort
+          </div>
+          <h1 className="rd-display" style={{ fontSize: "clamp(40px, 6.5vw, 88px)" }}>
+            Komm vorbei —
+            <br />
+            <em>mitten in Sinzig.</em>
           </h1>
-          <p className="kp-about-hero__sub">Oder ruf uns kurz an und reservier deinen Tisch.</p>
+          <p className="rd-sub" style={{ maxWidth: 540, margin: "22px auto 0 auto", fontSize: 18 }}>
+            Oder ruf kurz an und reservier deinen Tisch — besonders am Wochenende lohnt es sich.
+          </p>
+          <div style={{ marginTop: 30 }}>
+            <a href="tel:+4926425495" className="rd-pill rd-pill--solid" style={{ fontSize: 17 }}>
+              ☎ +49 2642 5495
+            </a>
+          </div>
         </section>
 
-        {/* Cards + map section */}
-        <div className="kp-contact-section">
-          {/* Two-column card grid on desktop */}
-          <div className="kp-contact-cols">
-            {/* Left column: address, phone, email */}
-            <div>
-              <div className="kp-contact-card">
-                <div className="kp-contact-card__label">Adresse</div>
-                <div className="kp-contact-card__value">
-                  Ausdorferstraße 1a<br />
-                  <em>53489 Sinzig</em>
-                </div>
-                <div className="kp-contact-card__sub">2 Min. vom Marktplatz</div>
-              </div>
-
-              <div className="kp-contact-card">
-                <div className="kp-contact-card__label">Telefon</div>
-                <div className="kp-contact-card__value">
-                  <a href="tel:+4926425495">+49 2642 5495</a>
-                </div>
-              </div>
-
-              <div className="kp-contact-card">
-                <div className="kp-contact-card__label">E-Mail</div>
-                <div className="kp-contact-card__value">
-                  <a href="mailto:info@kanpas.de">info@kanpas.de</a>
-                </div>
-              </div>
+        {/* Info-Raster */}
+        <section
+          className="grid grid-cols-1 lg:grid-cols-3"
+          style={{ borderTop: "1px solid var(--rd-line)", borderBottom: "1px solid var(--rd-line)" }}
+        >
+          <div style={{ padding: "36px 24px", borderBottom: "1px solid var(--rd-line)" }} className="lg:!border-b-0 lg:!p-11 lg:border-r lg:border-[color:var(--rd-line)]">
+            <div className="rd-numlabel">Adresse</div>
+            <div style={{ fontFamily: "var(--serif)", fontSize: 28, lineHeight: 1.2 }}>
+              Ausdorferstraße 1a
+              <br />
+              <em>53489 Sinzig</em>
             </div>
+            <p className="rd-sub" style={{ margin: "12px 0 0 0", fontSize: 15 }}>
+              2 Gehminuten vom Marktplatz · Außenplätze &amp; klimatisiertes Café
+            </p>
+          </div>
 
-            {/* Right column: hours, social */}
-            <div>
-              <div className="kp-contact-card">
-                <div className="kp-contact-card__label">Öffnungszeiten</div>
-                <ul className="kp-hours">
-                  {hours.map(([day, h]) => (
-                    <li key={day}>
-                      <span className="day">{day}</span>
-                      <span className="h">{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div style={{ padding: "36px 24px", borderBottom: "1px solid var(--rd-line)" }} className="lg:!border-b-0 lg:!p-11 lg:border-r lg:border-[color:var(--rd-line)]">
+            <div className="rd-numlabel">Öffnungszeiten</div>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+              {hours.map(([day, time]) => (
+                <li
+                  key={day}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 15,
+                    padding: "4px 0",
+                    borderBottom: "1px solid rgba(51,38,27,.08)",
+                  }}
+                >
+                  <span>{day}</span>
+                  <span>{time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <div className="kp-contact-card">
-                <div className="kp-contact-card__label">Folg uns</div>
-                <div className="kp-contact-card__value" style={{ fontSize: 18 }}>
-                  <a href="https://instagram.com/kanpas.sinzig" target="_blank" rel="noopener noreferrer">
-                    @kanpas.sinzig
-                  </a>
+          <div style={{ padding: "36px 24px", background: "var(--rd-parch)" }} className="lg:!p-11">
+            <div className="rd-numlabel">Schreib uns · Folg uns</div>
+            <div style={{ fontFamily: "var(--serif)", fontSize: 23 }}>
+              <a href="mailto:info@kanpas.de" style={{ textDecoration: "none" }}>
+                info@kanpas.de
+              </a>
+            </div>
+            <div style={{ fontFamily: "var(--serif)", fontSize: 23, marginTop: 6 }}>
+              <a
+                href="https://instagram.com/kanpas.sinzig"
+                target="_blank"
+                rel="noreferrer noopener"
+                style={{ textDecoration: "none" }}
+              >
+                @kanpas.sinzig
+              </a>
+            </div>
+            <div style={{ marginTop: 16, fontSize: 15, color: "var(--rd-gold)" }}>
+              ★★★★★{" "}
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+                style={{ color: "var(--rd-sepia)", fontSize: 14 }}
+              >
+                Bewerte uns auf Google
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Karte + Anfahrt */}
+        <section
+          className="rd-wrap grid grid-cols-1 lg:grid-cols-[2fr_1fr]"
+          style={{ gap: 24, paddingTop: 48, paddingBottom: 64, alignItems: "center" }}
+        >
+          <div className="rd-figure">
+            <div className="rd-figure__frame" style={{ height: 320 }}>
+              {useAppleMaps && !mapKitFailed ? (
+                <div style={{ width: "100%", height: "100%" }} ref={mapContainerRef}>
+                  {!mapKitLoaded && <span className="sr-only">Apple Karten wird geladen…</span>}
                 </div>
-                <div className="kp-contact-card__sub">Schau rein & bleib auf dem Laufenden.</div>
-              </div>
+              ) : (
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.273819918979!2d7.246364376631819!3d50.543989972446846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bef10056a2718d%3A0x869209ef27a88d64!2sKANPA%E2%80%99s!5e0!3m2!1sde!2sde!4v1735140000000!5m2!1sde!2sde"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="KANPA’s Standort auf Google Maps"
+                />
+              )}
             </div>
           </div>
 
-          {/* Map — full width, below cards */}
-          <div className="kp-map-wrapper">
-            {useAppleMaps && !mapKitFailed ? (
-              <div style={{ width: '100%', height: '100%' }} ref={mapContainerRef}>
-                {!mapKitLoaded && <span className="sr-only">Apple Karten wird geladen…</span>}
+          <div className="flex flex-col" style={{ gap: 4 }}>
+            <div className="rd-numlabel">Anfahrt</div>
+            {travel.map(([place, time]) => (
+              <div
+                key={place}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  gap: 12,
+                  padding: "12px 0",
+                  borderBottom: "1px solid var(--rd-line)",
+                }}
+              >
+                <span style={{ fontFamily: "var(--serif)", fontSize: 20 }}>{place}</span>
+                <span style={{ fontSize: 14, color: "var(--rd-sepia)" }}>{time}</span>
               </div>
-            ) : (
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.273819918979!2d7.246364376631819!3d50.543989972446846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bef10056a2718d%3A0x869209ef27a88d64!2sKANPA%E2%80%99s!5e0!3m2!1sde!2sde!4v1735140000000!5m2!1sde!2sde"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="KANPA’s Standort auf Google Maps"
-              />
-            )}
+            ))}
           </div>
-        </div>
+        </section>
       </main>
 
       <Footer />
