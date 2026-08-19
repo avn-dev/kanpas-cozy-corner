@@ -70,7 +70,7 @@ const Index = () => {
                 decoding="async"
               />
             </div>
-            <figcaption className="rd-figure__caption">Die gedeckte Sofra — Abb. 01</figcaption>
+            <figcaption className="rd-figure__caption">Die gedeckte Sofra</figcaption>
           </figure>
         </div>
 

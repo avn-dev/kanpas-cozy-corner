@@ -76,7 +76,7 @@ const About = () => {
                 />
               </div>
               <figcaption className="rd-figure__caption">
-                Das Haus in der Ausdorferstraße — Abb. 02
+                Das Haus in der Ausdorferstraße
               </figcaption>
             </figure>
 
