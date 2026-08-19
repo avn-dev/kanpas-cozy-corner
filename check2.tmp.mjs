@@ -1,0 +1,13 @@
+import puppeteer from 'puppeteer';
+const out = '/private/tmp/claude-501/-Users-avn-Dev-Clients-G-rkem-kanpas-cozy-corner/492885c5-9343-4175-964b-67339359a635/scratchpad';
+const browser = await puppeteer.launch();
+const page = await browser.newPage();
+await page.setViewport({width:390,height:844,deviceScaleFactor:2,isMobile:true});
+await page.goto('https://kanpas.de/menu', {waitUntil:'networkidle0', timeout:45000});
+await page.waitForSelector('.kp-item', {timeout: 20000});
+await new Promise(r=>setTimeout(r,600));
+await page.evaluate(()=>window.scrollTo(0, 900));
+await new Promise(r=>setTimeout(r,700));
+await page.screenshot({path:`${out}/fix2-menu-banner2.png`});
+await browser.close();
+console.log('done');
