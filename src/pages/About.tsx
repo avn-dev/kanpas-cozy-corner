@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
 import { Phone } from "lucide-react";
+import fassadePhoto from "@/assets/aussen.webp";
 
 const timeline: [string, string][] = [
   ["Vor 50 J.", "Großvaters Schneiderei eröffnet — bekannt weit über Sinzig hinaus."],
@@ -66,51 +67,17 @@ const About = () => {
 
           <div className="flex flex-col" style={{ gap: 24 }}>
             <figure className="rd-figure" style={{ margin: 0 }}>
-              <div
-                className="rd-figure__frame"
-                style={{ height: 280, display: "flex", alignItems: "center", justifyContent: "center" }}
-              >
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    top: 24,
-                    left: 24,
-                    width: 80,
-                    height: 80,
-                    borderRadius: "50%",
-                    border: "1px solid var(--rd-gold)",
-                  }}
+              <div className="rd-figure__frame" style={{ aspectRatio: "16 / 9" }}>
+                <img
+                  src={fassadePhoto}
+                  alt="Die Fassade von KANPA’s in der Ausdorferstraße 1a in Sinzig mit Terrassentischen vor dem Eingang"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    bottom: 24,
-                    right: 24,
-                    width: 110,
-                    height: 110,
-                    borderRadius: "50%",
-                    border: "1px solid var(--rd-line2)",
-                  }}
-                />
-                <div style={{ textAlign: "center", maxWidth: 280, padding: 16 }}>
-                  <div className="rd-serif-i" style={{ fontSize: 22 }}>
-                    Das Haus in der Ausdorferstraße
-                  </div>
-                  <div
-                    style={{
-                      marginTop: 6,
-                      fontSize: 12,
-                      letterSpacing: "0.16em",
-                      textTransform: "uppercase",
-                      color: "var(--rd-sepia2)",
-                    }}
-                  >
-                    Platz für ein Foto — Abb. 02
-                  </div>
-                </div>
               </div>
+              <figcaption className="rd-figure__caption">
+                Das Haus in der Ausdorferstraße — Abb. 02
+              </figcaption>
             </figure>
 
             <div className="rd-timeline">
