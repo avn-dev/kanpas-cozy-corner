@@ -85,7 +85,8 @@ const CookieConsentBanner = () => {
 
   const applyConsent = (analyticsAllowed: boolean) => {
     if (analyticsAllowed) {
-      enableAnalytics();
+      // Erster Seitenaufruf würde sonst verloren gehen (Tracker feuert nur bei Routenwechsel)
+      enableAnalytics({ sendPageView: true });
     } else {
       disableAnalytics();
     }
@@ -183,9 +184,9 @@ const CookieConsentBanner = () => {
                 Wir setzen ausschließlich technisch notwendige Cookies sowie – nur mit deiner
                 Einwilligung – optionale Analyse-Cookies von Google Analytics. Die IP-Adressen
                 werden anonymisiert und es werden keine personenbezogenen Profile gebildet. Du
-                kannst deine Entscheidung jederzeit widerrufen. Mehr in unserem{" "}
-                <Link to="/imprint" style={{ color: "var(--rd-ink)" }}>
-                  Impressum &amp; Datenschutzhinweisen
+                kannst deine Entscheidung jederzeit widerrufen. Mehr in unserer{" "}
+                <Link to="/datenschutz" style={{ color: "var(--rd-ink)" }}>
+                  Datenschutzerklärung
                 </Link>
                 .
               </p>

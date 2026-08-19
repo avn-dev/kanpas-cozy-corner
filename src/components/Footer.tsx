@@ -67,6 +67,8 @@ const Footer = () => {
         <span>© 2026 KANPA’s. Alle Rechte vorbehalten.</span>
         <span>
           <Link to="/imprint">Impressum</Link>
+          {" · "}
+          <Link to="/datenschutz">Datenschutz</Link>
         </span>
       </div>
     </footer>

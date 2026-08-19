@@ -20,8 +20,11 @@ const ensureGtagStub = () => {
   }
 
   if (!gaWindow.gtag) {
-    gaWindow.gtag = (...args: GtagCommand) => {
-      gaWindow.dataLayer!.push(args);
+    // Muss eine reguläre Funktion sein, die das Arguments-Objekt pusht —
+    // gtag.js ignoriert als Array gepushte Befehle stillschweigend.
+    gaWindow.gtag = function gtag(..._args: GtagCommand) {
+      // eslint-disable-next-line prefer-rest-params
+      (gaWindow.dataLayer as unknown as unknown[]).push(arguments);
     };
   }
 
@@ -60,21 +63,20 @@ const setConsent = (mode: "default" | "update", value: "granted" | "denied") => 
   });
 };
 
-export const enableAnalytics = () => {
+export const enableAnalytics = (options?: { sendPageView?: boolean }) => {
   if (typeof window === "undefined") return;
 
   const gaWindow = getGAWindow();
   const gtag = ensureGtagStub();
 
+  // Wichtig: das Disable-Flag wieder aufheben — sonst blockiert die GA-Bibliothek
+  // alle Hits dauerhaft, auch nach erteilter Einwilligung.
+  gaWindow[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
+
   injectGtagScript();
 
   if (!gaWindow.__gaInitialized) {
     gtag("js", new Date());
-
-    gtag("consent", "default", {
-      analytics_storage: "granted",
-      ad_storage: "denied",
-    });
 
     gtag("config", GA_MEASUREMENT_ID, {
       anonymize_ip: true,
@@ -82,6 +84,12 @@ export const enableAnalytics = () => {
     });
 
     gaWindow.__gaInitialized = true;
+  }
+
+  setConsent("update", "granted");
+
+  if (options?.sendPageView) {
+    gtag("event", "page_view", { page_path: window.location.pathname });
   }
 };
 

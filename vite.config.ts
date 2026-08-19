@@ -12,7 +12,7 @@ export default defineConfig(() => ({
   plugins: [
     react(),
     prerender({
-      routes: ["/", "/menu", "/about", "/contact", "/imprint", "/tuerkisches-fruehstueck", "/404"],
+      routes: ["/", "/menu", "/about", "/contact", "/imprint", "/tuerkisches-fruehstueck", "/datenschutz", "/404"],
       renderer: "@prerenderer/renderer-puppeteer",
       rendererOptions: {
         // Menü-Daten werden zur Laufzeit von admin.kanpas.de geladen —
