@@ -144,7 +144,7 @@ export default function MenuPage() {
   useSeo({
     title: 'Speisekarte – Frühstück, Brunch & türkische Spezialitäten',
     description:
-      'Die Speisekarte von KANPA’s in Sinzig: KANPA’s Brunch, türkisches Frühstück mit Bazlama, Menemen & Sucuk, Bagels, Pancakes, Pasta und hausgemachte Desserts – alle Preise online.',
+      'Frühstücksplatten mit Bazlama, Menemen & Sucuk, dazu Bagels, Pancakes, Pasta und hausgemachte Desserts — die komplette Karte mit allen Preisen, täglich frisch in Sinzig.',
     path: '/menu',
   });
   const [data, setData] = useState<MenuApiResponse | null>(null);

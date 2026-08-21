@@ -21,7 +21,7 @@ const Navigation = () => {
       <a href="#main-content" className="rd-skip">
         Zum Hauptinhalt springen
       </a>
-      <header className="rd-header" aria-label="Kopfbereich">
+      <header className="rd-header" aria-label="Kopfbereich" data-nosnippet="">
         <div className="rd-topbar">
           <span>Täglich 9–17 Uhr</span>
           <span>Ausdorferstraße 1a · 53489 Sinzig</span>

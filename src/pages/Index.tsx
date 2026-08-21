@@ -19,7 +19,7 @@ const Index = () => {
   useSeo({
     title: "Café & Brunch in Sinzig",
     description:
-      "KANPA’s – Café & Brunch in Sinzig. Türkisches Frühstück, Specialty Coffee & hausgemachte Desserts in gemütlicher Atmosphäre. Ausdorferstraße 1a, täglich 9–17 Uhr.",
+      "Türkisches Frühstück, Brunch & Specialty Coffee — täglich 9–17 Uhr in der Ausdorferstraße 1a, zwei Gehminuten vom Sinziger Marktplatz. Tisch reservieren: 02642 5495.",
     path: "/",
   });
 

@@ -34,7 +34,7 @@ const Contact = () => {
   useSeo({
     title: "Kontakt, Öffnungszeiten & Reservierung",
     description:
-      "Kontakt & Anfahrt: KANPA’s, Ausdorferstraße 1a, 53489 Sinzig – 2 Minuten vom Marktplatz. Täglich 9–17 Uhr geöffnet. Tisch reservieren unter +49 2642 5495.",
+      "Ausdorferstraße 1a in Sinzig, zwei Gehminuten vom Marktplatz — täglich 9–17 Uhr geöffnet, mit Außenplätzen. Tisch reservieren unter +49 2642 5495.",
     path: "/contact",
   });
   const [useAppleMaps, setUseAppleMaps] = useState(false);

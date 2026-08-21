@@ -15,7 +15,7 @@ const About = () => {
   useSeo({
     title: "Über uns",
     description:
-      "Die Geschichte hinter KANPA’s in Sinzig: Aus der Schneiderei des Großvaters wurde ein Café – ein Haus, zwei Generationen. Türkische Spezialitäten, mit Liebe gemacht.",
+      "Vor 50 Jahren die Schneiderei des Großvaters, heute ein Café voller Leben — die Familiengeschichte hinter KANPA’s in Sinzig. Ein Haus, zwei Generationen.",
     path: "/about",
   });
 

@@ -6,7 +6,7 @@ const GOOGLE_REVIEW_URL =
 
 const Footer = () => {
   return (
-    <footer className="rd-footer">
+    <footer className="rd-footer" data-nosnippet="">
       <div className="rd-footer__grid">
         <div className="rd-footer__col">
           <img

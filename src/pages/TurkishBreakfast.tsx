@@ -59,7 +59,7 @@ const TurkishBreakfast = () => {
   useSeo({
     title: "Türkisches Frühstück in Sinzig",
     description:
-      "Türkisches Frühstück (Kahvaltı) bei KANPA’s in Sinzig: Frühstücksplatte mit hausgemachtem Bazlama, Menemen, Sucuk & türkischem Tee — zwischen Remagen und Bad Breisig, täglich 9–17 Uhr.",
+      "Kahvaltı wie im Urlaub: viele kleine Schälchen, hausgemachtes Bazlama, Menemen und türkischer Tee — der KANPA’s Brunch für 16,50 € pro Person, zwischen Remagen und Bad Breisig.",
     path: "/tuerkisches-fruehstueck",
     jsonLd: faqJsonLd,
   });
