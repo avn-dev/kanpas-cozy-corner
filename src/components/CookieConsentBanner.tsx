@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from "react";
+import { wennSeiteBereit } from "@/lib/seiteBereit";
 import { Link } from "react-router-dom";
 import { disableAnalytics, enableAnalytics } from "@/utils/googleAnalytics";
 import { Switch } from "@/components/ui/switch";
@@ -79,7 +80,24 @@ const CookieConsentBanner = () => {
     } else {
       disableAnalytics();
       setAnalyticsEnabled(false);
-      setIsBannerVisible(true);
+      // Erst einblenden, wenn die Seite fertig geladen ist. Vorher stand der Kasten schon da,
+      // waehrend der Seiteninhalt noch kam: auf /menu/ erscheint danach die angeheftete Leiste
+      // „Tisch reservieren“, und die Regel body:has(.kp-reservebar) in index.css schiebt den
+      // Kasten um 60 px nach oben. Gemessen am 13.09.2026: Layoutversatz 0,29 auf /menu/,
+      // praktisch der gesamte CLS-Wert der Seite (Startseite derselben Messung: 0,003).
+      // Ein Element, das erst nach dem Versatz erscheint, zaehlt gar nicht mit.
+      // Es haengt kein Cookie und kein Tracker daran: ohne Einwilligung laeuft ohnehin nichts,
+      // disableAnalytics() ist oben schon gelaufen. Zwei Bilder spaeter heisst hier: sichtbar
+      // nach rund einer halben Sekunde statt nach 190 ms.
+      let abgebrochen = false;
+      const zeigen = () => {
+        if (abgebrochen) return;
+        abgebrochen = true;
+        requestAnimationFrame(() => requestAnimationFrame(() => setIsBannerVisible(true)));
+      };
+      // Notbremse, falls das Signal ausbleibt (Seitencode laedt nicht).
+      const timer = window.setTimeout(zeigen, 2500);
+      wennSeiteBereit(() => { window.clearTimeout(timer); zeigen(); });
     }
   }, []);
 

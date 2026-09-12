@@ -4,6 +4,7 @@ import CookieConsentBanner from "@/components/CookieConsentBanner";
 import ScrollToTop from "./lib/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import { pages } from "./lib/pages";
+import { seiteBereitMelden } from "./lib/seiteBereit";
 
 /**
  * Haelt die zuletzt vollstaendig gerenderte Seite sichtbar, bis der Code der neuen
@@ -33,8 +34,16 @@ const RouteView = () => {
           <Route key={path} path={path} element={<Page />} />
         ))}
       </Routes>
+      <Bereitmeldung />
     </Suspense>
   );
+};
+
+/** Haengt als Geschwister der Routen in derselben Suspense-Grenze, meldet also nach dem
+ *  Commit, mit dem der Seiteninhalt sichtbar wird. Begruendung in lib/seiteBereit.ts. */
+const Bereitmeldung = () => {
+  useEffect(seiteBereitMelden, []);
+  return null;
 };
 
 const App = () => (

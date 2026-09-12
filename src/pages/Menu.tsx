@@ -140,6 +140,27 @@ const MenuItem = ({ article }: { article: MenuArticle }) => {
   );
 };
 
+// Kennung des JSON-Blocks, den der Prerender-Snapshot mitliefert (siehe unten im Baum).
+const DATEN_ID = 'kanpas-menu-daten';
+
+// Wird beim Laden dieses Moduls ausgewertet, also vor dem Mounten (main.tsx laedt den Seiten-Code
+// erst vollstaendig und ruft dann createRoot().render()). Danach leert React den Container, der
+// Block waere dann nicht mehr auffindbar.
+// Warum ueberhaupt: Der Snapshot enthaelt die komplette Karte, React startete aber mit leerem
+// Zustand und zeigte fuenf Platzhalterbalken, bis der Abruf von admin.kanpas.de zurueckkam.
+// Die Seite fiel dabei von voller Hoehe auf rund 300 px und sprang wieder hoch.
+// Gemessen am 13.09.2026 live: CLS 0,30, LCP 4,0 s, Leistung 72 (Startseite derselben Messung: 100).
+const VORGERENDERTE_KARTE: MenuApiResponse | null = (() => {
+  if (typeof document === 'undefined') return null;
+  const el = document.getElementById(DATEN_ID);
+  if (!el?.textContent) return null;
+  try {
+    return JSON.parse(el.textContent) as MenuApiResponse;
+  } catch {
+    return null;
+  }
+})();
+
 export default function MenuPage() {
   useSeo({
     title: 'Speisekarte – Frühstück, Brunch & türkische Spezialitäten',
@@ -147,8 +168,10 @@ export default function MenuPage() {
       'Frühstücksplatten mit Bazlama, Menemen & Sucuk, dazu Bagels, Pancakes, Pasta und hausgemachte Desserts — die komplette Karte mit allen Preisen, täglich frisch in Sinzig.',
     path: '/menu',
   });
-  const [data, setData] = useState<MenuApiResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<MenuApiResponse | null>(VORGERENDERTE_KARTE);
+  // Nur laden, wenn der Snapshot nichts mitgebracht hat. Der Abruf unten laeuft trotzdem immer
+  // und ersetzt die Karte, sobald die Live-Daten da sind.
+  const [loading, setLoading] = useState(VORGERENDERTE_KARTE === null);
   const [error, setError] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [showToTop, setShowToTop] = useState(false);
@@ -277,6 +300,19 @@ export default function MenuPage() {
           </div>
         </section>
 
+        {/* Die Karte als JSON in den Snapshot schreiben. Der Prerender wartet auf den Abruf
+            (renderAfterTime in vite.config.ts), das statische HTML traegt sie danach mit, und der
+            naechste Besucher startet ohne Platzhalter. Ueber die Leitung sind das rund 2 KB
+            (19 KB unkomprimiert). "<" wird maskiert, damit ein Text im Menue das Skript-Ende
+            nicht vorzeitig schliessen kann. */}
+        {data && (
+          <script
+            id={DATEN_ID}
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
+          />
+        )}
+
         {loading && (
           <div className="kp-loading">
             {[...Array(5)].map((_, i) => (
@@ -285,11 +321,11 @@ export default function MenuPage() {
           </div>
         )}
 
-        {error && (
+        {error && !data && (
           <p className="kp-error">{error}</p>
         )}
 
-        {!loading && !error && (
+        {!loading && (!error || data) && (
           <>
             {categories.length > 0 && (
               <div className="kp-cats" ref={catsBarRef}>
