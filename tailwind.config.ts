@@ -2,7 +2,15 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./index.html",
+    "./src/App.tsx",
+    "./src/pages/**/*.tsx",
+    "./src/components/*.tsx",
+    // shadcn-Bausteine nur dort, wo sie importiert werden (Cookie-Banner)
+    "./src/components/ui/switch.tsx",
+    "./src/components/ui/label.tsx",
+  ],
   prefix: "",
   theme: {
     container: {

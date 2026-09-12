@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo-450.webp";
 import { Phone } from "lucide-react";
 
 const navItems = [
@@ -32,7 +32,7 @@ const Navigation = () => {
 
         <nav className="rd-nav" aria-label="Hauptnavigation">
           <Link to="/" className="rd-nav__logo" aria-label="KANPA’s — Startseite">
-            <img src={logo} alt="KANPA’s Logo" decoding="async" />
+            <img src={logo} alt="KANPA’s Logo" width={450} height={139} decoding="async" />
           </Link>
 
           <div className="rd-nav__links">

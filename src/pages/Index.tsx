@@ -3,6 +3,9 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
 import sofraPhoto from "@/assets/hero.webp";
+import sofraPhoto640 from "@/assets/hero-640.webp";
+import sofraPhoto960 from "@/assets/hero-960.webp";
+import sofraPhoto1280 from "@/assets/hero-1280.webp";
 import { Phone } from "lucide-react";
 
 const GOOGLE_REVIEW_URL =
@@ -64,10 +67,16 @@ const Index = () => {
           <figure className="rd-figure" style={{ margin: 0 }}>
             <div className="rd-figure__frame rd-figure__frame--hero">
               <img
-                src={sofraPhoto}
+                src={sofraPhoto960}
+                srcSet={`${sofraPhoto640} 640w, ${sofraPhoto960} 960w, ${sofraPhoto1280} 1280w, ${sofraPhoto} 1672w`}
+                sizes="(min-width: 1024px) min(1070px, calc(100vw - 130px)), calc(100vw - 58px)"
+                width={1672}
+                height={941}
                 alt="Die gedeckte Sofra: türkisches Frühstück mit vielen kleinen Schälchen, Bazlama und Çay bei KANPA’s"
                 loading="eager"
                 decoding="async"
+                // React 18 kennt fetchPriority noch nicht: Kleinschreibung landet 1:1 im DOM
+                {...{ fetchpriority: "high" }}
               />
             </div>
             <figcaption className="rd-figure__caption">Die gedeckte Sofra</figcaption>

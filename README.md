@@ -71,3 +71,33 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Build, Prerender und Performance (kanpas.de)
+
+Die Live-Seite wird statisch aus `dist/` ausgeliefert. Auf dem Server: `git pull && npm run build`
+(Node 22, Puppeteer-Chrome für den Prerender). Der Build erzeugt pro Route ein vorgerendertes
+`dist/<route>/index.html` und danach `dist/sitemap.xml`.
+
+Was der Build inzwischen tut (Stand 09/2026):
+
+- Routen werden lazy geladen (`src/lib/pages.tsx`, Hülle `src/lib/lazyPage.tsx`). Beim Start wird
+  der Chunk der aktuellen Seite vorab geladen, damit der vorgerenderte Snapshot ohne leeren
+  Zwischenzustand ersetzt wird; die übrigen Seiten werden 3 s nach `load` nachgeladen (nicht im
+  Prerender, sonst landen deren Preload-Links in jedem Snapshot).
+- React, ReactDOM und Router liegen in einem eigenen `vendor-*.js`-Chunk (`vite.config.ts`,
+  `manualChunks`), der sich nur bei Dependency-Updates ändert.
+- Das Stylesheet (~35 KB) wird beim Build in alle HTML-Dateien inline geschrieben
+  (`vite.config.ts`, Plugin `kanpas:inline-css`); die CSS-Datei bleibt zusätzlich in `dist/assets`.
+- Tailwind scannt nur noch die tatsächlich gebündelten Dateien (`tailwind.config.ts`, `content`).
+  Wird eine weitere shadcn-Komponente aus `src/components/ui` importiert, muss sie dort ergänzt werden.
+- Bilder: `hero.webp` und `aussen.webp` haben srcset-Varianten (640/960/1280) in `src/assets`,
+  erzeugt mit Pillow (LANCZOS, Qualität 82). Die `sizes`-Angaben in `Index.tsx` und `About.tsx`
+  spiegeln das Layout (rd-wrap-Padding 20/56 px, Figure-Rahmen 18 px, About-Spalte ca. 520 px)
+  und müssen bei Layoutänderungen nachgezogen werden. Logo als `logo-450.webp` (450x139).
+- Farbtoken `--rd-gold-text` (#826224) für Gold als Text auf hellen Flächen (Eyebrow, Nº-Labels,
+  Speisekarten-Optionsnummern, Timeline-Jahre): Kontrast >= 4,5:1. `--rd-gold` bleibt für
+  dunkle Flächen, Rahmen und Hover.
+- Footer-Rechtszeile nennt die Website-Betreuung (`Website: ahrweb.de`, `rel="noopener"`).
+
+Die Speisekarte wird zur Laufzeit von admin.kanpas.de geladen; der Prerender wartet 7 s, damit der
+Snapshot die vollständige Karte enthält (`renderAfterTime`).

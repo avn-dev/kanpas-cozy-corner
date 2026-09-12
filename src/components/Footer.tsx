@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo-450.webp";
 
 const GOOGLE_REVIEW_URL =
   "https://www.google.com/maps/search/?api=1&query=KANPA%E2%80%99s+Ausdorferstra%C3%9Fe+1a+Sinzig";
@@ -12,7 +12,9 @@ const Footer = () => {
           <img
             src={logo}
             alt="KANPA’s Logo"
-            style={{ height: 42, borderRadius: 4, alignSelf: "flex-start" }}
+            width={450}
+            height={139}
+            style={{ height: 42, width: "auto", borderRadius: 4, alignSelf: "flex-start" }}
             loading="lazy"
             decoding="async"
           />
@@ -69,6 +71,11 @@ const Footer = () => {
           <Link to="/imprint">Impressum</Link>
           {" · "}
           <Link to="/datenschutz">Datenschutz</Link>
+          {" · "}
+          Website:{" "}
+          <a href="https://ahrweb.de/" target="_blank" rel="noopener">
+            ahrweb.de
+          </a>
         </span>
       </div>
     </footer>

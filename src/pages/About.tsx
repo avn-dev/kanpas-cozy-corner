@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useSeo } from "@/hooks/use-seo";
 import { Phone } from "lucide-react";
 import fassadePhoto from "@/assets/aussen.webp";
+import fassadePhoto640 from "@/assets/aussen-640.webp";
+import fassadePhoto960 from "@/assets/aussen-960.webp";
+import fassadePhoto1280 from "@/assets/aussen-1280.webp";
 
 const timeline: [string, string][] = [
   ["Vor 50 J.", "Großvaters Schneiderei eröffnet — bekannt weit über Sinzig hinaus."],
@@ -69,7 +72,11 @@ const About = () => {
             <figure className="rd-figure" style={{ margin: 0 }}>
               <div className="rd-figure__frame" style={{ aspectRatio: "16 / 9" }}>
                 <img
-                  src={fassadePhoto}
+                  src={fassadePhoto960}
+                  srcSet={`${fassadePhoto640} 640w, ${fassadePhoto960} 960w, ${fassadePhoto1280} 1280w, ${fassadePhoto} 1600w`}
+                  sizes="(min-width: 1024px) 520px, calc(100vw - 58px)"
+                  width={1600}
+                  height={900}
                   alt="Die Fassade von KANPA’s in der Ausdorferstraße 1a in Sinzig mit Terrassentischen vor dem Eingang"
                   loading="lazy"
                   decoding="async"

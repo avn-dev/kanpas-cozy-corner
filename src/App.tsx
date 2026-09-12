@@ -1,46 +1,23 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import Index from "./pages/Index";
-import Menu from "./pages/Menu";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-import Imprint from "./pages/Imprint";
-import TurkishBreakfast from "./pages/TurkishBreakfast";
-import Privacy from "./pages/Privacy";
 import ScrollToTop from "./lib/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
-
-
-const queryClient = new QueryClient();
+import { pages } from "./lib/pages";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <CookieConsentBanner />
-        <ScrollToTop />
-        <AnalyticsTracker/>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/imprint" element={<Imprint />} />
-          <Route path="/tuerkisches-fruehstueck" element={<TurkishBreakfast />} />
-          <Route path="/datenschutz" element={<Privacy />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter>
+    <CookieConsentBanner />
+    <ScrollToTop />
+    <AnalyticsTracker />
+    <Suspense fallback={null}>
+      <Routes>
+        {pages.map(({ path, Page }) => (
+          <Route key={path} path={path} element={<Page />} />
+        ))}
+      </Routes>
+    </Suspense>
+  </BrowserRouter>
 );
 
 export default App;
