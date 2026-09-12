@@ -144,8 +144,12 @@ const CookieConsentBanner = () => {
           <h2 id="cookie-consent-title" className="sr-only">
             Cookies &amp; Datenschutz
           </h2>
-          <div id="cookie-consent-description" style={{ fontSize: 14.5, lineHeight: 1.5 }}>
-            <strong>Cookies:</strong> Nur technisch Notwendiges — und Statistik, wenn du magst.{" "}
+          <div
+            id="cookie-consent-description"
+            style={{ fontSize: 14.5, lineHeight: 1.5 }}
+          >
+            <strong>Cookies:</strong> Wir setzen keine — nur Statistik, wenn du
+            magst.{" "}
             <button
               type="button"
               onClick={() => setIsDetailsOpen(!isDetailsOpen)}
@@ -181,9 +185,9 @@ const CookieConsentBanner = () => {
               }}
             >
               <p style={{ margin: 0 }}>
-                Wir setzen ausschließlich technisch notwendige Cookies sowie – nur mit deiner
-                Einwilligung – optionale Analyse-Cookies von Google Analytics. Die IP-Adressen
-                werden anonymisiert und es werden keine personenbezogenen Profile gebildet. Du
+                Diese Website setzt von sich aus keine Cookies. Nur mit deiner
+                Einwilligung nutzen wir Google Analytics (Analyse-Cookies) — mit
+                anonymisierten IP-Adressen und ohne personenbezogene Profile. Du
                 kannst deine Entscheidung jederzeit widerrufen. Mehr in unserer{" "}
                 <Link to="/datenschutz" style={{ color: "var(--rd-ink)" }}>
                   Datenschutzerklärung
@@ -199,10 +203,19 @@ const CookieConsentBanner = () => {
                 }}
               >
                 <div>
-                  <div style={{ fontWeight: 600, color: "var(--rd-ink)", fontSize: 14 }}>
-                    Unbedingt erforderliche Cookies
+                  <div
+                    style={{
+                      fontWeight: 600,
+                      color: "var(--rd-ink)",
+                      fontSize: 14,
+                    }}
+                  >
+                    Speicherung deiner Auswahl
                   </div>
-                  <div>Sitzung &amp; Sicherheit — werden immer gesetzt.</div>
+                  <div>
+                    Nur dieser Hinweis, lokal in deinem Browser (localStorage) —
+                    kein Cookie, keine Weitergabe.
+                  </div>
                 </div>
                 <span
                   style={{
@@ -227,25 +240,37 @@ const CookieConsentBanner = () => {
                 <div>
                   <Label
                     htmlFor={analyticsSwitchId}
-                    style={{ fontWeight: 600, color: "var(--rd-ink)", fontSize: 14 }}
+                    style={{
+                      fontWeight: 600,
+                      color: "var(--rd-ink)",
+                      fontSize: 14,
+                    }}
                   >
                     Analyse &amp; Statistik (Google Analytics)
                   </Label>
                   <div>
-                    Nur mit deiner Zustimmung, mit IP-Anonymisierung und ohne Google-Signale.
+                    Nur mit deiner Zustimmung, mit IP-Anonymisierung und ohne
+                    Google-Signale.
                   </div>
                 </div>
                 <Switch
                   id={analyticsSwitchId}
                   checked={analyticsEnabled}
-                  onCheckedChange={(checked) => setAnalyticsEnabled(checked === true)}
+                  onCheckedChange={(checked) =>
+                    setAnalyticsEnabled(checked === true)
+                  }
                 />
               </div>
               <button
                 type="button"
                 onClick={() => applyConsent(analyticsEnabled)}
                 className="rd-pill rd-pill--outline"
-                style={{ fontSize: 14, padding: "10px 20px", minHeight: 0, alignSelf: "flex-start" }}
+                style={{
+                  fontSize: 14,
+                  padding: "10px 20px",
+                  minHeight: 0,
+                  alignSelf: "flex-start",
+                }}
               >
                 Auswahl speichern
               </button>
@@ -267,7 +292,7 @@ const CookieConsentBanner = () => {
               className="rd-pill rd-pill--outline"
               style={{ flex: 1, fontSize: 14.5, padding: 11 }}
             >
-              Nur nötige
+              Ablehnen
             </button>
           </div>
         </div>
@@ -299,7 +324,12 @@ const CookieConsentBanner = () => {
         >
           <span
             aria-hidden="true"
-            style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--rd-gold)" }}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: "var(--rd-gold)",
+            }}
           />
           Cookie-Einstellungen
         </button>
