@@ -21,8 +21,8 @@ const Navigation = () => {
       <a href="#main-content" className="rd-skip">
         Zum Hauptinhalt springen
       </a>
-      <header className="rd-header" aria-label="Kopfbereich" data-nosnippet="">
-        <div className="rd-topbar">
+      <header className="rd-header" aria-label="Kopfbereich">
+        <div className="rd-topbar" data-nosnippet="">
           <span>Täglich 9–17 Uhr</span>
           <span>Ausdorferstraße 1a · 53489 Sinzig</span>
           <a href="tel:+4926425495" style={{ textDecoration: "none", color: "inherit" }}>
@@ -35,7 +35,7 @@ const Navigation = () => {
             <img src={logo} alt="KANPA’s Logo" width={450} height={139} decoding="async" />
           </Link>
 
-          <div className="rd-nav__links">
+          <div className="rd-nav__links" data-nosnippet="">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -48,10 +48,10 @@ const Navigation = () => {
           </div>
 
           <a href="tel:+4926425495" className="rd-pill rd-pill--outline rd-nav__cta">
-            Tisch reservieren
+            <span data-nosnippet="">Tisch reservieren</span>
           </a>
 
-          <div className="rd-nav__mobile">
+          <div className="rd-nav__mobile" data-nosnippet="">
             <a
               href="tel:+4926425495"
               className="rd-iconbtn rd-iconbtn--solid"
@@ -82,7 +82,7 @@ const Navigation = () => {
         </nav>
 
         {isOpen && (
-          <div id="mobile-menu" className="rd-mobilemenu">
+          <div id="mobile-menu" className="rd-mobilemenu" data-nosnippet="">
             {navItems.map((item) => (
               <Link
                 key={item.path}

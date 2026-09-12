@@ -6,8 +6,8 @@ const GOOGLE_REVIEW_URL =
 
 const Footer = () => {
   return (
-    <footer className="rd-footer" data-nosnippet="">
-      <div className="rd-footer__grid">
+    <footer className="rd-footer">
+      <div className="rd-footer__grid" data-nosnippet="">
         <div className="rd-footer__col">
           <img
             src={logo}
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="rd-footer__bottom">
+      <div className="rd-footer__bottom" data-nosnippet="">
         <span>© 2026 KANPA’s. Alle Rechte vorbehalten.</span>
         <span>
           <Link to="/imprint">Impressum</Link>
