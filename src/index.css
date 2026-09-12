@@ -527,7 +527,7 @@ a { color: inherit; }
 .kp-item__num {
   display: none;
   font-size: 12px;
-  color: var(--rd-gold);
+  color: var(--rd-gold-text);
   letter-spacing: 0.06em;
   min-width: 26px;
 }

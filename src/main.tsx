@@ -16,7 +16,11 @@ const mount = () => createRoot(container).render(<App />);
 
 // Den Code der aktuellen Seite vorab laden: Der vorgerenderte Snapshot bleibt
 // sichtbar, bis die Seite vollständig rendern kann (kein leerer Zwischenzustand).
-preloadPage(window.location.pathname).then(mount, mount);
+preloadPage(window.location.pathname).then(mount, (fehler) => {
+  // Laedt der Seiten-Code nicht (etwa altes HTML im Cache nach einem Deploy), bleibt der
+  // vorgerenderte Snapshot stehen statt einer weissen Seite.
+  console.error("Seiten-Code konnte nicht geladen werden", fehler);
+});
 
 // Übrige Seiten nach dem Laden im Hintergrund nachziehen (nicht beim Build-Prerendering,
 // sonst landen Preload-Links für alle Seiten im statischen HTML).
